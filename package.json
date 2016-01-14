@@ -1,0 +1,51 @@
+{
+  "name": "react-at-rest",
+  "version": "1.0.0-beta1",
+  "engines": {
+    "node": "4.x",
+    "npm": "2.x"
+  },
+  "description": "An opinionated framework for building web applications using React and RESTful APIs.",
+  "main": "dist/index.js",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "node_modules/.bin/webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PayloadDev/react-at-rest.git"
+  },
+  "keywords": [
+    "react",
+    "rest",
+    "framework",
+    "ajax",
+    "forms",
+    "coffeescript"
+  ],
+  "author": "Ben Sargent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PayloadDev/react-at-rest/issues"
+  },
+  "homepage": "https://github.com/PayloadDev/react-at-rest#readme",
+  "dependencies": {
+    "classnames": "2.2.0",
+    "rsvp": "3.1.0",
+    "superagent": "1.4.0",
+    "superagent-no-cache": "git://github.com/uditalias/superagent-no-cache.git"
+  },
+  "devDependencies": {
+    "cjsx-loader": "2.1.0",
+    "coffee-loader": "0.7.2",
+    "coffee-react-transform": "3.2.0",
+    "coffee-script": "^1.10.0",
+    "react-hot-loader": "1.3.0",
+    "webpack": "^1.12.11"
+  },
+  "peerDependencies": {
+    "lodash": "3.10.1",
+    "react": "0.14.6"
+  }
+}
