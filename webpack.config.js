@@ -1,49 +1,26 @@
 var path = require('path');
 var webpack = require('webpack');
+var webpackUMDExternal = require('webpack-umd-external');
 
 /******** DEVELOPMENT *********/
 module.exports = {
   entry: [
-    'modules/index' // JS
+    __dirname+'/modules/index.js' // JS
   ],
   // devtool: 'cheap-module-source-map',
   output: {
-    path: path.join(__dirname, 'dist'),
-    pathinfo: true,
+    path: path.join(__dirname, 'lib'),
     filename: 'index.js',
     library: 'AtRest',
     libraryTarget: 'umd'
   },
-  externals: [
-    {
-      react: {
-        root: 'React',
-        commonjs2: 'react',
-        commonjs: 'react',
-        amd: 'react'
-      }
-    },
-    {
-      lodash: {
-        root: '_',
-        commonjs2: 'lodash',
-        commonjs: 'lodash',
-        amd: 'lodash'
-      }
-    }
-  ],
-  resolveLoader: {
-    modulesDirectories: ['node_modules']
-  },
+  externals: webpackUMDExternal({
+    'react': 'React',
+    'lodash': '_'
+  }),
   resolve: {
-    extensions: ['', '.js', '.cjsx', '.coffee', '.js.coffee', '.js.cjsx'],
-    modulesDirectories: [
-      'node_modules'
-    ],
-    root: [
-      __dirname,
-      path.resolve(__dirname, "node_modules")
-    ]
+    root: path.resolve('./modules'),
+    extensions: ['', '.js', '.cjsx', '.coffee', '.js.coffee', '.js.cjsx']
   },
   module: {
     loaders: [
