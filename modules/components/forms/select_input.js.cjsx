@@ -5,6 +5,7 @@ FieldHint       = require './field_hint'
 FieldErrors     = require './field_errors'
 
 React      = require 'react'
+_          = require 'lodash'
 classNames = require 'classnames'
 
 module.exports = class SelectInput extends RestFormElement

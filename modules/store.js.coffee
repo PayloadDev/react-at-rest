@@ -4,6 +4,7 @@ Resource  = require './resource'
 Utils     = require './utils'
 
 RSVP              = require 'rsvp'
+_                 = require 'lodash'
 superagent        = require 'superagent'
 superagentNoCache = require 'superagent-no-cache'
 
@@ -291,7 +292,7 @@ class Store
       for plugin in Store.SUPERAGENT_PLUGINS
         req.use plugin
 
-      req.send data ? null
+      req.send data ? {}
 
       req.end (err, response) ->
         if response?.ok
@@ -312,5 +313,9 @@ class Store
 
 # mix the Events functions into the Store prototype
 _.extend(Store::, Events)
+
+# handle any uncaught errors in our Promise chain
+RSVP.on 'error', (reason) ->
+  console.error reason.stack if reason?.stack
 
 module.exports = Store

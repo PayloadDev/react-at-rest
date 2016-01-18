@@ -1,4 +1,5 @@
 React = require 'react'
+_     = require 'lodash'
 
 module.exports = class Label extends React.Component
 

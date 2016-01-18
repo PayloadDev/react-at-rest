@@ -7,7 +7,6 @@
   },
   "description": "An opinionated framework for building web applications using React and RESTful APIs.",
   "main": "./lib/index.js",
-  "private": "true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "node_modules/.bin/webpack -p"
@@ -44,11 +43,11 @@
     "lodash": "^3.10.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-hot-loader": "1.3.0",
-    "webpack": "^1.12.11",
+    "webpack": "^1.11.0",
     "webpack-umd-external": "^1.0.2"
   },
   "peerDependencies": {
+    "lodash": "^3.10.1",
     "react": "^0.14.0"
   }
 }

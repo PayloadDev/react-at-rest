@@ -5,6 +5,7 @@ FieldErrors     = require './field_errors'
 Label           = require './label'
 
 React      = require 'react'
+_          = require 'lodash'
 classNames = require 'classnames'
 
 module.exports = class TextAreaInput extends RestFormElement

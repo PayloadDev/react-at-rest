@@ -1,3 +1,5 @@
+_ = require 'lodash'
+
 module.exports = {
   # Remove pluralization from a string
   #

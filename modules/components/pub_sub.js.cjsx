@@ -1,6 +1,7 @@
 EventableComponent = require './eventable_component'
 RSVP               = require 'rsvp'
 Utils              = require '../utils'
+_                  = require 'lodash'
 
 
 module.exports = class PubSub extends EventableComponent

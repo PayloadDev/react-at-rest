@@ -12,14 +12,14 @@ module.exports = {
     path: path.join(__dirname, 'lib'),
     filename: 'index.js',
     library: 'AtRest',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   externals: webpackUMDExternal({
     'react': 'React',
     'lodash': '_'
   }),
   resolve: {
-    root: path.resolve('./modules'),
     extensions: ['', '.js', '.cjsx', '.coffee', '.js.coffee', '.js.cjsx']
   },
   module: {
@@ -27,5 +27,8 @@ module.exports = {
       { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
       { test: /\.coffee$/, loader: 'coffee' }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(true)
+  ]
 };

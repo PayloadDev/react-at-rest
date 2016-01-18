@@ -1,4 +1,5 @@
 React = require 'react'
+_     = require 'lodash'
 
 module.exports = class SubForm extends React.Component
 

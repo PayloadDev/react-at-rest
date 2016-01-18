@@ -6,6 +6,7 @@ Resource           = require '../resource'
 AppEvents          = require '../app_events'
 
 React = require 'react'
+_     = require 'lodash'
 RSVP  = require 'rsvp'
 
 module.exports = class RestForm extends EventableComponent
