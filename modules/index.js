@@ -6,10 +6,10 @@ module.exports = {
 
   // forms & components
   EventableComponent: require('./components/eventable_component'),
-  PubSub:             require('./components/pub_sub'),
+  DeliveryService:    require('./components/delivery_service'),
   RestFormElement:    require('./components/rest_form_element'),
   RestForm:           require('./components/rest_form'),
-  Forms: {
+  Forms:              {
     CheckboxInput: require('./components/forms/checkbox_input'),
     ErrorSummary:  require('./components/forms/error_summary'),
     FieldErrors:   require('./components/forms/field_errors'),

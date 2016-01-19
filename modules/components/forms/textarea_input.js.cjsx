@@ -46,7 +46,6 @@ module.exports = class TextAreaInput extends RestFormElement
       <div className={@props.inputWrapperClassName}>
         <textarea
           name={@props.name}
-          defaultValue={@props.defaultValue}
           value={@state.value}
           className={classes}
           placeholder={@props.placeholder}

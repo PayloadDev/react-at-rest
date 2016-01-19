@@ -4,9 +4,10 @@ Utils              = require '../utils'
 _                  = require 'lodash'
 
 
-module.exports = class PubSub extends EventableComponent
+# DeliveryService brings Resources from the Store
+module.exports = class DeliveryService extends EventableComponent
 
-  @displayName = 'PubSub'
+  @displayName = 'DeliveryService'
 
   metaKey:       'meta'
   defaultQuery:  null
