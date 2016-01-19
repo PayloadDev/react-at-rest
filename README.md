@@ -17,7 +17,7 @@ Clone the react-at-rest examples repo to get started! https://github.com/Payload
 * Uses subclasses instead of mixins or composition.
 * Plays nicely with react-router
 
-### Requirements and Installation
+## Requirements and Installation
 
 ReactAtRest depends on `react` and `lodash`
 
@@ -67,6 +67,42 @@ class BlogPosts extends DeliveryService
       {posts}
     </div>
 ```
+
+Or to load a single resource:
+
+```coffeescript
+class BlogPost extends DeliveryService
+
+  constructor: (props) ->
+    super props
+    # create a new Store which connected to an API at /posts
+    @postStore = new Store 'posts'
+
+
+  # override bindResources to load all the resources needed for this component
+  bindResources: (props) ->
+    # retrieve the post from the Post Store by id
+    @retrieveResource @postStore, id: @props.postId
+
+
+  render: ->
+    # show a loading message while loading data
+    return <span>Loading...</span> unless @state.loaded
+
+    # render the post
+    <div>
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <h3 className="panel-title">{@state.post.title}</h3>
+        </div>
+        <div className="panel-body">
+          {@state.post.body}
+        </div>
+      </div>
+    </div>
+```
+
+DeliveryService can load multiple resources in `bindResources`. Simply execute additional `subscribeAll`, `subscribeResource`, `retrieveAll` or `retrieveResource` methods.
 
 ## Creating new resources
 
