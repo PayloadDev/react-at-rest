@@ -20,3 +20,8 @@ Requirements
 
 `react` and `lodash`
 
+# Battle Tested, Written with Pragmatism
+
+ReactAtRest has no lofty goals of academic purity. It's a collection of powerful tools that make writing SPAs faster and simpler. You'll be amazed at what you can accomplish in a very short period of time. 
+
+ReactAtRest powers the Payload SPA at payload.net.
