@@ -104,7 +104,7 @@ class BlogPost extends DeliveryService
 
 DeliveryService can load multiple resources in `bindResources`. Simply execute additional `subscribeAll`, `subscribeResource`, `retrieveAll` or `retrieveResource` methods.
 
-## Creating new resources
+## Creating and updating resources
 
 `RestForm` takes care of rendering create/edit forms and submitting to the API.
 
