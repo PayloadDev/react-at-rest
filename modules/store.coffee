@@ -88,6 +88,10 @@ class Store
         data = @denormalizeAll data
         root = if Store.API_ENVELOPE then data[@resourcesKey] else data
 
+        unless root?
+          throw new Error "Store.getAll: Unable to parse API response."
+          return
+
         # clear the existing resources
         @clearResources()
         # store the resources
@@ -130,6 +134,11 @@ class Store
       .then (data) =>
         data = @denormalizeResource data
         root = if Store.API_ENVELOPE then data[@resourceKey] else data
+
+        unless root?
+          throw new Error "Store.getResource: Unable to parse API response."
+          return
+
         resource = @storeResource root, @getPolicies(data, root.id) if root?
         @trigger 'fetch', "#{key}": resource
 
@@ -284,9 +293,12 @@ class Store
   #
   ajax: (url, verb='GET', data) ->
     deferred = new RSVP.Promise (resolve, reject) ->
-      req = superagent verb, url
+      req = superagent[verb.toLowerCase()] url
 
       req.set 'Content-Type', Store.DEFAULT_CONTENT_TYPE
+
+      # append no-cache headers
+      req.use superagentNoCache
 
       # use plugins
       for plugin in Store.SUPERAGENT_PLUGINS
