@@ -28,10 +28,8 @@ module.exports = {
 
   // libs & utilities
   Events: require('../vendor/events'),
-  Utils:  require('./utils')
+  Utils:  require('./utils'),
+
+  superagent: require('superagent')
 
 };
-
-
-
-
