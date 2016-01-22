@@ -293,6 +293,8 @@ class Store
   #
   ajax: (url, verb='GET', data) ->
     deferred = new RSVP.Promise (resolve, reject) ->
+      # superagent's method name is 'del', not 'delete'
+      verb = 'del' if verb is 'DELETE'
       req = superagent[verb.toLowerCase()] url
 
       req.set 'Content-Type', Store.DEFAULT_CONTENT_TYPE

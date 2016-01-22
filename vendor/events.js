@@ -1,3 +1,5 @@
+_ = require('lodash')
+
 var Events = {};
 
 var array = [];

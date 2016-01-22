@@ -1,18 +1,9 @@
 superagent = require 'superagent'
 mocker     = require('superagent-mocker')(superagent)
-
-{Store}    = require '../modules'
 expect     = require 'expect'
 
-# Store.API_PATH_PREFIX = 'http://test.server'
-# Store.SUPERAGENT_PLUGINS = [(request) ->
-#   console.log 'whoops!', request
-#   mocker(request)]
+{Store, Resource} = require '../modules'
 
-# set up mock API
-#
-#
-#
 
 describe 'Store', ->
   describe '#getPath()', ->
@@ -37,9 +28,25 @@ describe 'Store', ->
         req
 
       store = new Store 'users'
+      spy   = expect.createSpy()
+      store.on 'reset', spy
+
       store.getAll().then (data) ->
         expect(data.users[0].name).toBe 'bob'
         expect(data.users[1].name).toBe 'jim'
+        expect(spy).toHaveBeenCalled()
+
+    it 'should store metadata returned in the API', ->
+      mocker.get '/users', (req) ->
+        req.body = users: [{id: 1, name: 'bob'}, {id: 2, name: 'jim'}], meta: total: 2
+        req.ok = true
+        req
+
+      store = new Store 'users'
+
+      store.getAll().then (data) ->
+        expect(store.resources.meta.total).toBe 2
+
 
   describe '#getResource()', ->
     it 'should fetch a resource from an id route', ->
@@ -49,8 +56,11 @@ describe 'Store', ->
         req
 
       store = new Store 'users'
+      spy   = expect.createSpy()
+      store.on 'fetch', spy
       store.getResource(1).then (data) ->
         expect(data.user.name).toBe 'bob'
+        expect(spy).toHaveBeenCalled()
 
     it 'should fail on a bad API response', ->
       mocker.get '/users/1', (req) ->
@@ -59,6 +69,60 @@ describe 'Store', ->
         req
 
       store = new Store 'users'
+      spy   = expect.createSpy()
+      store.on 'fetch', spy
       store.getResource(1).catch (err) ->
         expect(err).toBeA Error
+        # spy should not have been called
+        expect(spy.calls.length).toEqual 0
 
+    it 'should store the resource with any policies', ->
+      mocker.get '/users/1', (req) ->
+        req.body =
+          user: {id: 1, name: 'bob'}
+          meta: policies: [{user_id: 1, update: true, destroy: false}]
+        req.ok = true
+        req
+
+      store = new Store 'users'
+      store.getResource(1).then (data) ->
+        expect(data.user.canUpdate()).toBe true
+        expect(data.user.canDestroy()).toBe false
+
+  describe '#createResource()', ->
+    it 'should create a resource', ->
+      mocker.post '/users', (req) ->
+        req.body = user: req.body
+        req.body.user.id = 99
+        req.ok = true
+        req
+
+      store = new Store 'users'
+      spy   = expect.createSpy()
+      store.on 'create', spy
+
+      store.createResource(name: 'bob').then (data) ->
+        expect(data.user.name).toBe 'bob'
+        expect(data.user.id).toBe 99
+        expect(spy).toHaveBeenCalled()
+
+  describe '#deleteResource()', ->
+    it 'should delete a resource', ->
+      mocker.del '/users/99', (req) ->
+        req.ok = true
+        req
+
+      store = new Store 'users'
+      spy   = expect.createSpy()
+      store.on 'destroy', spy
+
+      store.destroyResource(99).then (data) ->
+        expect(spy).toHaveBeenCalled()
+
+  describe '#storeResource()', ->
+    it 'should cache the API resources', ->
+      store = new Store 'users'
+      store.storeResource id: 99, name: 'bob'
+      expect(store.resources.users.length).toBe 1
+      expect(store.resources.users[0]).toBeA Resource
+      expect(store.resources.users[0].name).toBe 'bob'
