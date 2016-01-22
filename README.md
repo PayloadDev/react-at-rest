@@ -1,13 +1,15 @@
 # react-at-rest
 An opinionated framework for building web applications using React and RESTful APIs.
 
+![Codeship Badge](https://codeship.com/projects/27ad5260-a389-0133-6b2c-3a486f5179bd/status?branch=master)
+
 ## Sample Projects
 
 Clone the react-at-rest examples repo to get started! https://github.com/PayloadDev/react-at-rest-examples
 
 ## Main Concepts
 
-* ReactAtRest is composed of 3 main classes, working in concert: `Store`, `DeliveryService`, and `RestForm`. 
+* ReactAtRest is composed of 3 main classes, working in concert: `Store`, `DeliveryService`, and `RestForm`.
   * `Store`: manages all AJAX requests and holds the data returned by the server.
   * `DeliveryService`: React Component that manages and simplifies communication with the Stores.
   * `RestForm`: React Component for building forms and managing RESTful data flow.
@@ -25,7 +27,7 @@ ReactAtRest depends on `react` and `lodash`
 
 ## Battle Tested and Pragmatic
 
-ReactAtRest has no lofty goals of academic purity. It's a collection of powerful tools that make writing SPAs faster and simpler. You'll be amazed at what you can accomplish in a very short period of time. 
+ReactAtRest has no lofty goals of academic purity. It's a collection of powerful tools that make writing SPAs faster and simpler. You'll be amazed at what you can accomplish in a very short period of time.
 
 ReactAtRest powers the Payload SPA at payload.net.
 
@@ -61,8 +63,8 @@ class BlogPosts extends DeliveryService
           {post.body}
         </div>
       </div>
-    
-    # render the posts  
+
+    # render the posts
     <div>
       {posts}
     </div>
