@@ -24,7 +24,7 @@ Clone the react-at-rest examples repo to get started! https://github.com/Payload
 * Written in CoffeeScript, fully compatible with ES6.
 * Uses Bootstrap classes by default, but doesn't depend on Bootstrap.
 * Uses subclasses instead of mixins or composition.
-* Plays nicely with react-router
+* Plays nicely with [react-router](https://github.com/rackt/react-router/)
 
 ## Requirements and Installation
 
