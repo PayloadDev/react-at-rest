@@ -32,6 +32,7 @@ describe 'DeliveryService', ->
         bindResources: ->
           @retrieveAll store
         resourcesDidLoad: ->
+          expect(component.state.loaded).toBe true
           expect(component.state.users).toExist()
           expect(component.state.users.length).toBe 2
           done()
