@@ -9,7 +9,7 @@ React-at-Rest is *opinionated* about how your API should be structured, but is c
 React-at-Rest prefers *enveloped* APIs for a variety of reasons, but principally because enveloped APIs make it easier to implements metadata and to sideload related resources.
 
 An enveloped API returns the requested resource wrapped in an object using the resource name as a key. For example:
-```
+```coffeescript
 GET /users/1
 # enveloped API would return
 { user: { id: 1, name: 'Bob' } }
@@ -17,7 +17,7 @@ GET /users/1
 { id: 1, name: 'Bob' } 
 ```
 Enveloped APIs are useful for sideloading, if for example you want to return the company information associated with a user in a single request:
-```
+```coffeescript
 GET /users/1
 { 
   user: { id: 1, name: 'Bob', companyId: 2 },
@@ -27,7 +27,7 @@ GET /users/1
 React-at-Rest Stores provide denormalization hooks for transforming these related resources into a single nested object if desired. More on this later.
 
 Enveloped APIs also make it easier to return metadata, such as pagination information:
-```
+```coffeescript
 GET /users
 {
   users: [{ id: 1, name: 'Bob' }, { id: 2, name: 'David' }],
@@ -47,13 +47,11 @@ React-at-Rest uses *inheritance* instead of mixins or composition. To implement 
 # Core Classes
 
 React-at-Rest is comprised of three fundamental building blocks:
+* [Store](store.md)
+* [DeliveryService](deliveryservice.md)
+* [RestForm](restform.md)
 
-## Stores
+and two associated concepts:
+* [Resources](resources.md)
+* [Events](events.md)
 
-The `Store` class is responsible for:
-* implementing the basic REST operations: 
-  * `getResource` (GET) 
-  * `getAll` (GET index)
-  * `createResource` (POST) 
-  * `updateResource` (PATCH)
-  * `destroyResource` (DELETE)
