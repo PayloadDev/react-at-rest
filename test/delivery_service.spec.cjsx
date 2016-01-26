@@ -12,7 +12,7 @@ describe 'DeliveryService', ->
   describe '#render()', ->
     before ->
       mocker.get '/users', (req) ->
-        req.body = users: [{id: 1, name: 'bob'}, {id: 2, name: 'jim'}]
+        req.body = users: [{id: 1, name: 'bob'}, {id: 2, name: 'david'}]
         req.ok = true
         req
 
