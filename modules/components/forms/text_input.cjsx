@@ -36,6 +36,7 @@ module.exports = class TextInput extends RestFormElement
           <input
             ref='element'
             {...@props}
+            type={@props.inputType}
             value={@state.value}
             className="form-control"
             onChange={@handleChange} />
