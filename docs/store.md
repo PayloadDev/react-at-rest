@@ -17,7 +17,7 @@ The Store class exposes some static variables to modify the default behaviour of
 * `Store.API_PATH_PREFIX = [String]` - prefix all API requests with this string (default: '')
 * `Store.API_ENVELOPE = [Bool]` - enable or disable enveloped API responses (default: true)
 * `Store.SUPERAGENT_PLUGINS = [Array]` - an array of superagent plugin functions. See https://github.com/visionmedia/superagent#plugins (default: [])
-  * useful for modifying AJAX headers to send auth tokens, etc.
+  * useful for modifying HTTP headers to send auth tokens, etc.
 * `Store.DEFAULT_CONTENT_TYPE = [String]` - Content type header (default: 'application/json')
 
 ###Constructor
@@ -33,58 +33,6 @@ new Store(
 * `resourceKey`: singular resource name for GET by id envelope. Automatically derived from `resourcesKey` if not provided.
   * eg. if `resourcesKey` is 'users' then `resourceKey` will be automatically set to 'user'
   * pass this argument when the singular of your resource is not a simple conversion (eg. 'companies', 'company')
-
-###Store Customization
-
-Stores provide several methods which are intended to be overridden in subclasses to suit your particular environment.
-
-###path()
-
-```
-path(
-  String action,
-  (String id),
-  (Object options)
-)
-```
-
-* Generate an API path
-* `action`: REST action. One of 'index', 'create', 'show', 'update', or 'destroy'
-* `id`: resource id
-* `options`:
-  * `parentResourcesKey`: plural name of parent resource
-  * `parentResourceId`: id of parent resource
-  * `query`: query string
-
-**returns: String**
-
-###denormalizeResource()
-
-```
-denormalizeResource(
-  Object data
-)
-```
-
-* hook for denormalizing the returned singular data into the format expected by the application
-* when overriding, return the modified data
-* `data`: the raw JSON object returned by the API
-
-**returns: Object**
-
-###denormalizeAll()
-
-```
-denormalizeAll(
-  Object data
-)
-```
-
-* hook for denormalizing the returned index data into the format expected by the application
-* when overriding, return the modified data
-* `data`: the raw JSON object returned by the API
-
-**returns: Object**
 
 ###REST Methods
 
@@ -170,6 +118,58 @@ destroyResource(
 * `id`: the id of the resource
 
 **returns: Promise**
+
+###Store Customization
+
+Stores provide several methods which are intended to be overridden in subclasses to suit your particular environment.
+
+###path()
+
+```
+path(
+  String action,
+  (String id),
+  (Object options)
+)
+```
+
+* Generate an API path
+* `action`: REST action. One of 'index', 'create', 'show', 'update', or 'destroy'
+* `id`: resource id
+* `options`:
+  * `parentResourcesKey`: plural name of parent resource
+  * `parentResourceId`: id of parent resource
+  * `query`: query string
+
+**returns: String**
+
+###denormalizeResource()
+
+```
+denormalizeResource(
+  Object data
+)
+```
+
+* hook for denormalizing the returned singular data into the format expected by the application
+* when overriding, return the modified data
+* `data`: the raw JSON object returned by the API
+
+**returns: Object**
+
+###denormalizeAll()
+
+```
+denormalizeAll(
+  Object data
+)
+```
+
+* hook for denormalizing the returned index data into the format expected by the application
+* when overriding, return the modified data
+* `data`: the raw JSON object returned by the API
+
+**returns: Object**
 
 ###Events
 
