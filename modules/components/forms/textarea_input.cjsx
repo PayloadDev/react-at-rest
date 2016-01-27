@@ -11,15 +11,9 @@ classNames = require 'classnames'
 module.exports = class TextAreaInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    autoFocus:    React.PropTypes.bool
     className:    React.PropTypes.string
     hideLabel:    React.PropTypes.bool
     onChange:     React.PropTypes.func
-    placeholder:  React.PropTypes.string
-    rows:         React.PropTypes.oneOfType([
-                    React.PropTypes.string
-                    React.PropTypes.number
-                  ])
     value:        React.PropTypes.string
 
 
@@ -45,17 +39,10 @@ module.exports = class TextAreaInput extends RestFormElement
       {label}
       <div className={@props.inputWrapperClassName}>
         <textarea
-          name={@props.name}
+          {...@props}
           value={@state.value}
           className={classes}
-          placeholder={@props.placeholder}
-          rows={@props.rows}
-          autoFocus={@props.autoFocus}
-          onChange={@handleChange}
-          onClick={@props.onClick}
-          onFocus={@props.onFocus}
-          onBlur={@props.onBlur}
-          style={@props.style} />
+          onChange={@handleChange} />
       </div>
       <FieldHint hint={@props.hint} />
       <FieldErrors errors={@props.errors}/>

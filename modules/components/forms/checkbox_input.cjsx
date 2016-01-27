@@ -20,11 +20,10 @@ module.exports = class CheckboxInput extends RestFormElement
         <label className={@props.labelClassName}>
           <div className={@props.inputWrapperClassName}>
             <input
-              name={@props.name}
+              {...@props}
               checked={@state.value}
               type='checkbox'
-              onChange={@handleChange}
-              onBlur={@props.onBlur} />
+              onChange={@handleChange} />
             {@props.label ? _.startCase @props.name}
           </div>
         </label>

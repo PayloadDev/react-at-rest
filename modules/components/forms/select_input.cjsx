@@ -11,7 +11,6 @@ classNames = require 'classnames'
 module.exports = class SelectInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    autoFocus: React.PropTypes.bool
     divClass:  React.PropTypes.string
     hideLabel: React.PropTypes.bool
     multiple:  React.PropTypes.bool
@@ -50,12 +49,9 @@ module.exports = class SelectInput extends RestFormElement
         {label}
         <div className={@props.inputWrapperClassName}>
           <select
-            autoFocus={@props.autoFocus}
-            multiple={@props.multiple}
+            {...@props}
             onChange={@handleChange}
-            className='form-control'
-            value={@props.value}
-            defaultValue={@props.defaultValue} >
+            className='form-control' >
             {selectOptions}
           </select>
           <FieldHint hint={@props.hint} />

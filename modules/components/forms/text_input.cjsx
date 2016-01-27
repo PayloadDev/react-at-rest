@@ -11,25 +11,17 @@ classNames = require 'classnames'
 module.exports = class TextInput extends RestFormElement
 
   @propTypes = _.extend RestFormElement.propTypes,
-    autoFocus:   React.PropTypes.bool
     hideLabel:   React.PropTypes.bool
     inputType:   React.PropTypes.string
-    onBlur:      React.PropTypes.func
     onChange:    React.PropTypes.func
-    onClick:     React.PropTypes.func
-    onFocus:     React.PropTypes.func
-    onKeyPress:  React.PropTypes.func
-    placeholder: React.PropTypes.string
     style:       React.PropTypes.object
-    tabIndex:    React.PropTypes.number
 
   @defaultProps =
-    autoFocus: false
     inputType: 'text'
 
 
   render: ->
-    if not @props.hideLabel
+    unless @props.hideLabel
       labelClassName = classNames 'control-label', @props.labelClassName
       label = <Label
         label={@props.label}
@@ -42,19 +34,12 @@ module.exports = class TextInput extends RestFormElement
         {label}
         <div className={@props.inputWrapperClassName}>
           <input
-            name={@props.name}
-            value={@state.value}
+            ref='element'
+            {...@props}
             type={@props.inputType}
+            value={@state.value}
             className="form-control"
-            placeholder={@props.placeholder}
-            autoFocus={@props.autoFocus}
-            disabled={@props.disabled}
-            tabIndex={@props.tabIndex}
-            onChange={@handleChange}
-            onClick={@props.onClick}
-            onFocus={@props.onFocus}
-            onBlur={@props.onBlur}
-            onKeyPress={@props.onKeyPress} />
+            onChange={@handleChange} />
           <FieldHint hint={@props.hint} />
           <FieldErrors errors={@props.errors} />
         </div>
