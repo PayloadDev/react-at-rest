@@ -1,5 +1,12 @@
 React = require 'react'
-_     = require 'lodash'
+_ =
+  isEqual:   require 'lodash/lang/isequal'
+  isEmpty:   require 'lodash/lang/isempty'
+  cloneDeep: require 'lodash/lang/cloneDeep'
+  pick:      require 'lodash/object/pick'
+  compact:   require 'lodash/array/compact'
+  reject:    require 'lodash/collection/reject'
+
 
 module.exports = class SubFormArray extends React.Component
 

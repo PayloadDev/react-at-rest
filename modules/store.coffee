@@ -4,9 +4,19 @@ Resource  = require './resource'
 Utils     = require './utils'
 
 RSVP              = require 'rsvp'
-_                 = require 'lodash'
 superagent        = require 'superagent'
 superagentNoCache = require 'superagent-no-cache'
+
+_ =
+  bind:       require 'lodash/function/bind'
+  defaults:   require 'lodash/object/defaults'
+  difference: require 'lodash/array/difference'
+  extend:     require 'lodash/object/extend'
+  find:       require 'lodash/collection/find'
+  pluck:      require 'lodash/collection/pluck'
+  remove:     require 'lodash/array/remove'
+  snakeCase:  require 'lodash/string/snakecase'
+
 
 # Base Store class that handles all API CRUD
 #

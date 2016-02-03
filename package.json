@@ -31,6 +31,7 @@
   "homepage": "https://github.com/PayloadDev/react-at-rest#readme",
   "dependencies": {
     "classnames": "2.2.0",
+    "lodash": "^3.10.1",
     "rsvp": "3.1.0",
     "superagent": "1.4.0",
     "superagent-no-cache": "git://github.com/uditalias/superagent-no-cache.git"
@@ -53,7 +54,6 @@
     "webpack-umd-external": "^1.0.2"
   },
   "peerDependencies": {
-    "lodash": "^3.10.1",
     "react": "^0.14.0"
   }
 }

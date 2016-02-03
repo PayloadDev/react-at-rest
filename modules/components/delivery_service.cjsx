@@ -1,7 +1,15 @@
 EventableComponent = require './eventable_component'
 RSVP               = require 'rsvp'
 Utils              = require '../utils'
-_                  = require 'lodash'
+
+_ =
+  isArray:    require 'lodash/lang/isarray'
+  isEqual:    require 'lodash/lang/isequal'
+  isFunction: require 'lodash/lang/isfunction'
+  keys:       require 'lodash/object/keys'
+  last:       require 'lodash/array/last'
+  merge:      require 'lodash/object/merge'
+  without:    require 'lodash/array/without'
 
 
 # DeliveryService brings Resources from the Store

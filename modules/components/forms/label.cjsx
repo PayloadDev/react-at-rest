@@ -1,5 +1,6 @@
 React = require 'react'
-_     = require 'lodash'
+_ =
+  startCase:    require 'lodash/string/startcase'
 
 module.exports = class Label extends React.Component
 

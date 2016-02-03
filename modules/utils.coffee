@@ -1,4 +1,8 @@
-_ = require 'lodash'
+_ =
+  endsWith:      require 'lodash/string/endsWith'
+  isNaN:         require 'lodash/lang/isnan'
+  isPlainObject: require 'lodash/lang/isplainobject'
+
 
 module.exports = {
   # Remove pluralization from a string
