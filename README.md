@@ -91,7 +91,8 @@ class BlogPost extends DeliveryService
   # override bindResources to load all the resources needed for this component
   bindResources: (props) ->
     # retrieve the post from the Post Store by id
-    @retrieveResource @postStore, id: @props.postId
+    # (null here indicates we want to use the default callback)
+    @retrieveResource @postStore, null, id: @props.postId
 
 
   render: ->
