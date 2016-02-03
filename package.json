@@ -1,11 +1,11 @@
 {
   "name": "react-at-rest",
-  "version": "1.0.0-beta2",
+  "version": "1.0.0-beta3",
   "engines": {
     "node": "4.x",
     "npm": "2.x"
   },
-  "description": "An opinionated framework for building web applications using React and RESTful APIs.",
+  "description": "An opinionated toolkit for building web applications using React and RESTful APIs.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "mocha  --compilers coffee:coffee-react/register,cjsx:coffee-react/register --recursive --require ./test/setup.coffee",
