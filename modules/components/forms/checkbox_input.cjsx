@@ -1,7 +1,10 @@
 RestFormElement = require '../rest_form_element'
 FieldWrapper    = require './field_wrapper'
 
-_          = require 'lodash'
+_ =
+  extend:    require 'lodash/object/extend'
+  startCase: require 'lodash/string/startCase'
+
 React      = require 'react'
 classNames = require 'classnames'
 

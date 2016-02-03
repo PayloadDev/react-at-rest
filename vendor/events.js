@@ -1,4 +1,9 @@
-_ = require('lodash')
+var _ = {};
+_.uniqueId = require('lodash/utility/uniqueId');
+_.keys = require('lodash/object/keys');
+_.isEmpty = require('lodash/lang/isEmpty');
+_.bind = require('lodash/function/bind');
+_.once = require('lodash/function/once');
 
 var Events = {};
 

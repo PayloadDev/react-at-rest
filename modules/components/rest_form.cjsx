@@ -6,8 +6,17 @@ Resource           = require '../resource'
 AppEvents          = require '../app_events'
 
 React = require 'react'
-_     = require 'lodash'
 RSVP  = require 'rsvp'
+
+_ =
+  cloneDeep: require 'lodash/lang/cloneDeep'
+  extend:    require 'lodash/object/extend'
+  get:       require 'lodash/object/get'
+  isEmpty:   require 'lodash/lang/isEmpty'
+  isEqual:   require 'lodash/lang/isEqual'
+  omit:      require 'lodash/object/omit'
+  set:       require 'lodash/object/set'
+
 
 module.exports = class RestForm extends EventableComponent
 
