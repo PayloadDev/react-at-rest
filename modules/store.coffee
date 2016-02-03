@@ -15,7 +15,7 @@ _ =
   find:       require 'lodash/collection/find'
   pluck:      require 'lodash/collection/pluck'
   remove:     require 'lodash/array/remove'
-  snakeCase:  require 'lodash/string/snakecase'
+  snakeCase:  require 'lodash/string/snakeCase'
 
 
 # Base Store class that handles all API CRUD
