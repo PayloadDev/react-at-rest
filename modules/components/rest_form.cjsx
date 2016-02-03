@@ -9,11 +9,11 @@ React = require 'react'
 RSVP  = require 'rsvp'
 
 _ =
-  cloneDeep: require 'lodash/lang/clonedeep'
+  cloneDeep: require 'lodash/lang/cloneDeep'
   extend:    require 'lodash/object/extend'
   get:       require 'lodash/object/get'
-  isEmpty:   require 'lodash/lang/isempty'
-  isEqual:   require 'lodash/lang/isequal'
+  isEmpty:   require 'lodash/lang/isEmpty'
+  isEqual:   require 'lodash/lang/isEqual'
   omit:      require 'lodash/object/omit'
   set:       require 'lodash/object/set'
 

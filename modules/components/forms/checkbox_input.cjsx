@@ -3,7 +3,7 @@ FieldWrapper    = require './field_wrapper'
 
 _ =
   extend:    require 'lodash/object/extend'
-  startCase: require 'lodash/string/startcase'
+  startCase: require 'lodash/string/startCase'
 
 React      = require 'react'
 classNames = require 'classnames'

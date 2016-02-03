@@ -3,9 +3,9 @@ RSVP               = require 'rsvp'
 Utils              = require '../utils'
 
 _ =
-  isArray:    require 'lodash/lang/isarray'
-  isEqual:    require 'lodash/lang/isequal'
-  isFunction: require 'lodash/lang/isfunction'
+  isArray:    require 'lodash/lang/isArray'
+  isEqual:    require 'lodash/lang/isEqual'
+  isFunction: require 'lodash/lang/isFunction'
   keys:       require 'lodash/object/keys'
   last:       require 'lodash/array/last'
   merge:      require 'lodash/object/merge'

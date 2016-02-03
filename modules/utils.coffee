@@ -1,7 +1,7 @@
 _ =
   endsWith:      require 'lodash/string/endsWith'
-  isNaN:         require 'lodash/lang/isnan'
-  isPlainObject: require 'lodash/lang/isplainobject'
+  isNaN:         require 'lodash/lang/isNaN'
+  isPlainObject: require 'lodash/lang/isPlainObject'
 
 
 module.exports = {

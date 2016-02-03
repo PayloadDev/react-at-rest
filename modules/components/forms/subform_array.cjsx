@@ -1,7 +1,7 @@
 React = require 'react'
 _ =
-  isEqual:   require 'lodash/lang/isequal'
-  isEmpty:   require 'lodash/lang/isempty'
+  isEqual:   require 'lodash/lang/isEqual'
+  isEmpty:   require 'lodash/lang/isEmpty'
   cloneDeep: require 'lodash/lang/cloneDeep'
   pick:      require 'lodash/object/pick'
   compact:   require 'lodash/array/compact'

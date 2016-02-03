@@ -9,7 +9,7 @@ classNames = require 'classnames'
 
 _ =
   extend:  require 'lodash/object/extend'
-  isEqual: require 'lodash/lang/isequal'
+  isEqual: require 'lodash/lang/isEqual'
 
 
 module.exports = class TextAreaInput extends RestFormElement

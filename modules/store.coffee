@@ -100,7 +100,6 @@ class Store
 
         unless root?
           throw new Error "Store.getAll: Unable to parse API response."
-          return
 
         # clear the existing resources
         @clearResources()
@@ -147,7 +146,6 @@ class Store
 
         unless root?
           throw new Error "Store.getResource: Unable to parse API response."
-          return
 
         resource = @storeResource root, @getPolicies(data, root.id) if root?
         @trigger 'fetch', "#{key}": resource
