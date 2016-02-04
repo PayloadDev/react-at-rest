@@ -174,23 +174,29 @@ module.exports = class RestForm extends EventableComponent
     @setState busy: false
 
     if response.body?
-      if response.body.errors
+      body = @parseErrors response.body
+      if body.errors
         @setState (state) ->
           state.errors = {}
           # error might be in dotted notation, so convert that to a nested object for subforms
-          for key,value of response.body.errors
+          for key,value of body.errors
             _.set(state.errors, key, Utils.capitalize e for e in value)
           state.errorMessage = null
           state
-      else if response.body.errorMessage
-        @setState errorMessage: response.body.errorMessage
+      else if body.errorMessage
+        @setState errorMessage: body.errorMessage
 
       AppEvents.trigger 'form.error',
-        errors:       response.body.errors
-        errorMessage: response.body.errorMessage
+        errors:       body.errors
+        errorMessage: body.errorMessage
 
     else
       console.error response.stack ? response ? 'An unknown error occurred.'
+
+
+  # override in child class for error parsing
+  parseErrors: (body) ->
+    body
 
 
   # validate the outgoing model against @validations
