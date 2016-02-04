@@ -147,4 +147,6 @@ Then render your form component with either a blank model, or one retrieved from
 ```
 
 # Credits
-React-at-Rest
+React-at-Rest was developed by the team at [Payload](payload.net) and maintained by [Ben Sargent](https://github.com/fortybillion).
+
+Event code from the [Backbone project](https://github.com/jashkenas/backbone).
