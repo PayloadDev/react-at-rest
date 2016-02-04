@@ -142,7 +142,7 @@ defaultQuery: (store) ->
 
 #### routeParamKey: (string)
 
-When using react-at-rest with react-router, DeliveryService will intelligently rebind all the resources when a dynamic route parameter changes. This allows the data to be refetched without rerendering the entire page.
+When using React-at-Rest with react-router, DeliveryService will intelligently rebind all the resources when a dynamic route parameter changes. This allows the data to be refetched without rerendering the entire page.
 
 `routeParamKey` should be set to the dynamic route key declared in the `<Route>`.
 

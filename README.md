@@ -1,4 +1,4 @@
-# react-at-rest
+# React-at-Rest
 An opinionated toolkit for building web applications using React and RESTful APIs.
 
 ![Codeship Badge](https://codeship.com/projects/27ad5260-a389-0133-6b2c-3a486f5179bd/status?branch=master)
@@ -17,7 +17,7 @@ Clone the react-at-rest examples repo to get started! https://github.com/Payload
 
 ## Main Concepts
 
-* ReactAtRest is composed of 3 main classes, working in concert: `Store`, `DeliveryService`, and `RestForm`.
+* React-at-Rest is composed of 3 main classes, working in concert: `Store`, `DeliveryService`, and `RestForm`.
   * `Store`: manages all AJAX requests and holds the data returned by the server.
   * `DeliveryService`: React Component that manages and simplifies communication with the Stores.
   * `RestForm`: React Component for building forms and managing RESTful data flow.
@@ -29,15 +29,15 @@ Clone the react-at-rest examples repo to get started! https://github.com/Payload
 
 ## Requirements and Installation
 
-ReactAtRest depends on `react`.
+React-at-Rest depends on `react`.
 
 `npm install --save react-at-rest react`
 
 ## Battle Tested and Pragmatic
 
-ReactAtRest is a collection of powerful tools that make writing SPAs faster and simpler. You'll be amazed at what you can accomplish in a very short period of time.
+React-at-Rest is a collection of powerful tools that make writing SPAs faster and simpler. You'll be amazed at what you can accomplish in a very short period of time.
 
-ReactAtRest powers the Payload SPA at payload.net.
+React-at-Rest powers the Payload SPA at payload.net.
 
 # Getting Started
 
@@ -145,3 +145,6 @@ Then render your form component with either a blank model, or one retrieved from
 # or to edit a blog posted loaded in a DeliveryService subclass
 <BlogPostForm model={@state.post} store={@postStore} />
 ```
+
+# Credits
+React-at-Rest
