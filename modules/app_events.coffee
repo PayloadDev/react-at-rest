@@ -1,4 +1,5 @@
-_      = require 'lodash'
+_ =
+  extend: require 'lodash/object/extend'
 Events = require '../vendor/events'
 
 

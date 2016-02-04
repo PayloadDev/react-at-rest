@@ -1,5 +1,7 @@
 React = require 'react'
-_     = require 'lodash'
+_ =
+  isEqual: require 'lodash/lang/isEqual'
+
 
 module.exports = class SubForm extends React.Component
 

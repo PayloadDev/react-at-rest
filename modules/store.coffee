@@ -4,9 +4,19 @@ Resource  = require './resource'
 Utils     = require './utils'
 
 RSVP              = require 'rsvp'
-_                 = require 'lodash'
 superagent        = require 'superagent'
 superagentNoCache = require 'superagent-no-cache'
+
+_ =
+  bind:       require 'lodash/function/bind'
+  defaults:   require 'lodash/object/defaults'
+  difference: require 'lodash/array/difference'
+  extend:     require 'lodash/object/extend'
+  find:       require 'lodash/collection/find'
+  pluck:      require 'lodash/collection/pluck'
+  remove:     require 'lodash/array/remove'
+  snakeCase:  require 'lodash/string/snakeCase'
+
 
 # Base Store class that handles all API CRUD
 #
@@ -90,7 +100,6 @@ class Store
 
         unless root?
           throw new Error "Store.getAll: Unable to parse API response."
-          return
 
         # clear the existing resources
         @clearResources()
@@ -137,7 +146,6 @@ class Store
 
         unless root?
           throw new Error "Store.getResource: Unable to parse API response."
-          return
 
         resource = @storeResource root, @getPolicies(data, root.id) if root?
         @trigger 'fetch', "#{key}": resource

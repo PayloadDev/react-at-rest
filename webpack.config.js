@@ -16,8 +16,7 @@ module.exports = {
     umdNamedDefine: true
   },
   externals: webpackUMDExternal({
-    'react': 'React',
-    'lodash': '_'
+    'react': 'React'
   }),
   resolve: {
     extensions: ['', '.js', '.cjsx', '.coffee', '.js.coffee', '.js.cjsx']

@@ -1,11 +1,11 @@
 {
   "name": "react-at-rest",
-  "version": "1.0.0-beta2",
+  "version": "1.0.0-beta3",
   "engines": {
     "node": "4.x",
     "npm": "2.x"
   },
-  "description": "An opinionated framework for building web applications using React and RESTful APIs.",
+  "description": "An opinionated toolkit for building web applications using React and RESTful APIs.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "mocha  --compilers coffee:coffee-react/register,cjsx:coffee-react/register --recursive --require ./test/setup.coffee",
@@ -31,6 +31,7 @@
   "homepage": "https://github.com/PayloadDev/react-at-rest#readme",
   "dependencies": {
     "classnames": "2.2.0",
+    "lodash": "^3.10.1",
     "rsvp": "3.1.0",
     "superagent": "1.4.0",
     "superagent-no-cache": "git://github.com/uditalias/superagent-no-cache.git"
@@ -53,7 +54,6 @@
     "webpack-umd-external": "^1.0.2"
   },
   "peerDependencies": {
-    "lodash": "^3.10.1",
     "react": "^0.14.0"
   }
 }
