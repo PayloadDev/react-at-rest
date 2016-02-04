@@ -11,3 +11,5 @@ Event Name              | Triggered on                   | Arguments
 api.networkok           | successful network response    |
 api.networkerror        | network connection error       | Error error
 api.exception           | API error code response        | Object response
+form.error              | Form validation error          | Object error
+

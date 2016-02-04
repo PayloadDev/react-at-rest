@@ -9,6 +9,7 @@ An opinionated framework for building web applications using React and RESTful A
 * [Store](docs/store.md)
 * [DeliveryService](docs/deliveryservice.md)
 * [RestForm](docs/restform.md)
+* [App Events](docs/appevents.md)
 
 ## Sample Projects
 

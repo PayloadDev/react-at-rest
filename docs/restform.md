@@ -94,6 +94,14 @@ getFieldProps(
 * Creates an object representing spread props to pass to the RestFormElement child component
 * `key`: the property name in the model for this RestFormElement to update
 
+#### getUpdatedModel()
+```
+getUpdatedModel()
+```
+* Merge the patch and original model into a new model object
+
+**Returns: Object**
+
 ## Configuration
 
 #### validations (Object)
@@ -111,7 +119,7 @@ Field names which should **not** but submitted as part of the patch to the API. 
 omitAttributes: ['acceptAgreement', 'viewedTermsAndConditions']
 ```
 
-### Errors
+### Handling Errors
 
 RestForm expects errors to be returned in the following JSON format:
 {
