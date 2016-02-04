@@ -50,8 +50,102 @@ class UserIndexPage extends DeliveryService
 ## Binding Methods
 #### subscribeAll()
 
+```
+subscribeAll(
+    Object store,
+    (Function callback),
+    (Object options)
+)
+```
+* Retrieve all Resources from the API. Refetch the resources every 15 seconds and update the component's state.
+* `store`: the Store to use
+* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
+* `options`:
+  * `parentResourcesKey`: Name of parent resource
+  * `parentResourceId`:   Required if parentResourcesKey specified. Id of parent resource.
+  * `query`:              Querystring object to pass onto the API for sort/filter/etc
+
+
 #### subscribeResource()
+
+```
+subscribeResource(
+    Object store,
+    (Function callback),
+    (Object options)
+)
+```
+* Retrieve the Resource from the API. Refetch the resource every 15 seconds and update the component's state.
+* `store`: the Store to use
+* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
+* `options`:
+  * `id`:                 id of the resource
+  * `parentResourcesKey`: Name of parent resource
+  * `parentResourceId`:   Required if parentResourcesKey specified. Id of parent resource.
+  * `query`:              Querystring object to pass onto the API for sort/filter/etc
 
 #### retrieveAll()
 
+```
+retrieveAll(
+    Object store,
+    (Function callback),
+    (Object options)
+)
+```
+* Retrieve all Resources from the API.
+* `store`: the Store to use
+* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
+* `options`:
+  * `parentResourcesKey`: Name of parent resource
+  * `parentResourceId`:   Required if parentResourcesKey specified. Id of parent resource.
+  * `query`:              Querystring object to pass onto the API for sort/filter/etc
+
 #### retrieveResource()
+
+```
+retrieveResource(
+    Object store,
+    (Function callback),
+    (Object options)
+)
+```
+* Retrieve the Resource from the API.
+* `store`: the Store to use
+* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
+* `options`:
+  * `id`:                 id of the resource
+  * `parentResourcesKey`: Name of parent resource
+  * `parentResourceId`:   Required if parentResourcesKey specified. Id of parent resource.
+  * `query`:              Querystring object to pass onto the API for sort/filter/etc
+
+## Configuration
+
+A DeliveryService subclass can be configured via a few utility constants.
+
+#### defaultQuery: (object or function)
+
+Append a default query to every request. If `defaultQuery` is a function, it will be called with the signature `(store) ->`. If it is an object, that query will be appended to every request from the component regardless of origin.
+
+```coffeescript
+# all queries appended with ?sort=asc
+defaultQuery:
+  sort: 'asc'
+
+# queries appended depending on originating store
+defaultQuery: (store) ->
+  if (store is @userStore)
+    sort: 'asc'
+  else
+    sort: 'desc'
+```
+
+#### routeParamKey: (string)
+
+When using react-at-rest with react-router, DeliveryService will intelligently rebind all the resources when a dynamic route parameter changes. This allows the data to be refetched without rerendering the entire page.
+
+`routeParamKey` should be set to the dynamic route key declared in the `<Route>`.
+
+For example, if you have a route declared as `/users/:userId`, and the user navigates from `/users/3` to `/users/9`, DeliveryService will refetch the User with the new id.
+
+Set `routeParamKey: 'userId'` in this case.
