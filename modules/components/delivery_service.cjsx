@@ -134,6 +134,7 @@ module.exports = class DeliveryService extends EventableComponent
     RSVP.all(requests)
       .then(@setStateFromStore)
       .then(@startPollingBoundResources)
+      .then(@startListeningToBoundResources)
       .then(@resourcesDidLoad)
 
 
@@ -156,6 +157,37 @@ module.exports = class DeliveryService extends EventableComponent
     @setState newState
 
 
+  startPollingBoundResources: =>
+    for sub in @boundResources
+      do (sub) =>
+        if sub.eventName in ['fetch', 'reset']
+          @listenTo sub.store, sub.eventName, sub.callback ? @setStateFromStore
+          sub.store.startPolling sub.options
+
+
+  startListeningToBoundResources: =>
+    for sub in @boundResources
+      do (sub) =>
+        # ensure local creates/updates are synced to the state
+        if sub.eventName in ['reset', 'resetonce']
+          @listenTo sub.store, 'create', (resource, resources) =>
+            (sub.callback ? @setStateFromStore) resources
+          @listenTo sub.store, 'destroy', (resources) =>
+            (sub.callback ? @setStateFromStore) resources
+          @listenTo sub.store, 'update', (resource, resources) =>
+            (sub.callback ? @setStateFromStore) resources
+
+        # when fetching a single resource, trigger an update when that specific resource is updated
+        if sub.eventName in ['fetch', 'fetchonce']
+          @listenTo sub.store, 'update', (resource, resources) =>
+            if parseInt(resource[sub.store.resourceKey].id) is parseInt(sub.options?.id)
+              (sub.callback ? @setStateFromStore) resource
+
+
+  stopPolling: ->
+    sub.store.stopPolling() for sub in @boundResources
+
+
   stopListeningToBoundResources: =>
     for sub in @boundResources
       if sub.eventName in ['fetch', 'reset']
@@ -166,29 +198,6 @@ module.exports = class DeliveryService extends EventableComponent
         @stopListening sub.store, 'destroy'
 
       @stopListening sub.store, 'update'
-
-
-  startPollingBoundResources: =>
-    for sub in @boundResources
-      do (sub) =>
-        if sub.eventName in ['fetch', 'reset']
-          @listenTo sub.store, sub.eventName, sub.callback ? @setStateFromStore
-          sub.store.startPolling sub.options
-        # ensure local creates/updates are synced to the state
-        if sub.eventName in ['reset', 'resetonce']
-          @listenTo sub.store, 'create', (resource, resources) =>
-            (sub.callback ? @setStateFromStore) resources
-          @listenTo sub.store, 'destroy', (resources) =>
-            (sub.callback ? @setStateFromStore) resources
-
-        # always listen for updates
-        @listenTo sub.store, 'update', (resource, resources) =>
-          if parseInt(resource[sub.store.resourceKey].id) is parseInt(sub.options?.id)
-            (sub.callback ? @setStateFromStore) resource
-
-
-  stopPolling: ->
-    sub.store.stopPolling() for sub in @boundResources
 
 
   render: ->
