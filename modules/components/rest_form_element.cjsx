@@ -20,7 +20,7 @@ module.exports = class RestFormElement extends React.Component
 
   constructor: (props) ->
     @state =
-      value: props.value or props.defaultValue
+      value: props.value ? props.defaultValue
 
 
   componentWillMount: ->
