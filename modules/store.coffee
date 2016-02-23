@@ -338,6 +338,6 @@ _.extend(Store::, Events)
 
 # handle any uncaught errors in our Promise chain
 RSVP.on 'error', (reason) ->
-  console.error reason.stack if reason?.stack
+  console.error reason.message, reason.stack if reason?.stack
 
 module.exports = Store

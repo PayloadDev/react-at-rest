@@ -30,6 +30,7 @@ module.exports = {
   Events: require('../vendor/events'),
   Utils:  require('./utils'),
 
-  superagent: require('superagent')
+  superagent: require('superagent'),
+  RSVP: require('RSVP')
 
 };
