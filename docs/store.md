@@ -184,3 +184,27 @@ update        | updateResource()  | Object resource
 destroy       | destroyResource() | Object resources
 
 Additionally, Stores [trigger some global events on the AppEvents object](appevents.md).
+
+### Merging and Chaining API Requests
+
+A Store functions as an abstraction between the raw data coming from the API, and the data needed to present the UI. Typically this relationship is 1:1, meaning Resources in the client map to documents returned by the API. In some cases, though, it's necessary to chain or merge multiple API requests into a single object for the client to represent.
+
+The Store class can be subclassed to chain multiple requests into a single Resource or Resource collection. This is accomplished by overriding the RESTful verb methods, making the necessary requests, and invisibly returning the merged object via the Store.
+
+```coffeescript
+# retrieves the company associated with the user and merges it into the user resource
+class UserWithCompanyStore extends Store
+
+  get: (url, options) ->
+    response = {}
+
+    @ajax url, 'GET', options
+    .then (data) ->
+      response = data
+
+      CompanyStore.getResource data.user.companyId
+
+    .then (data) ->
+      response.user.company = data.company
+      response
+```
