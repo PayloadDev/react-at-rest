@@ -70,6 +70,7 @@ module.exports = {
 
   # Simplified version of jQuery's 'param' method
   toQueryStr: (query) ->
+    return query if typeof query is 'string'
     queryStr = []
     for key, value of query
       value = value ? ''

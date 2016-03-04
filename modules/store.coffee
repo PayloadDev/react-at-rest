@@ -55,6 +55,7 @@ class Store
   # @return [Object] Stored object
   storeResource: (data, policies) ->
     newResource = new @ResourceClass data, policies
+
     # replace resource if it already exists
     for resource, index in @resources[@resourcesKey]
       if resource.id is data.id
@@ -93,7 +94,7 @@ class Store
   getAll: (options={}) =>
     url = @getPath 'index', null, options
 
-    @ajax(url)
+    @index(url)
       .then (data) =>
         data = @denormalizeAll data
         root = if Store.API_ENVELOPE then data[@resourcesKey] else data
@@ -139,7 +140,7 @@ class Store
       return RSVP.Promise.resolve("#{key}": resource) if resource?
 
     url = @getPath 'show', id, options
-    @ajax(url)
+    @get(url)
       .then (data) =>
         data = @denormalizeResource data
         root = if Store.API_ENVELOPE then data[@resourceKey] else data
@@ -165,8 +166,7 @@ class Store
   #
   createResource: (model, options={}) ->
     url  = @getPath 'create', null, options
-    verb = 'POST'
-    @ajax(url, verb, model)
+    @post(url, model)
       .then (data) =>
         data     = @denormalizeResource data
         root     = if Store.API_ENVELOPE then data[@resourceKey] else data
@@ -186,8 +186,7 @@ class Store
   #
   updateResource: (id, patch, options) ->
     url  = @getPath 'update', id, options
-    verb = 'PATCH'
-    @ajax(url, verb, patch)
+    @update(url, patch)
       .then (data) =>
         data     = @denormalizeResource data
         root     = if Store.API_ENVELOPE then data[@resourceKey] else data
@@ -205,8 +204,7 @@ class Store
   #
   destroyResource: (id) ->
     url  = @getPath 'destroy', id
-    verb = 'DELETE'
-    @ajax(url, verb)
+    @delete(url)
       .then (data) =>
         @unstoreResource id
         @trigger 'destroy', @resources
@@ -298,7 +296,6 @@ class Store
   # @param data     [Object]  Request payload
   #
   # @return [Object] Promise
-  #
   ajax: (url, verb='GET', data) ->
     deferred = new RSVP.Promise (resolve, reject) ->
       # superagent's method name is 'del', not 'delete'
@@ -333,6 +330,14 @@ class Store
     # return the RSVP promise object
     deferred
 
+  # direct access to REST verbs
+  get:    (url, options) -> @ajax url, 'GET', options
+  index:  (url, options) -> @ajax url, 'GET', options
+  post:   (url, options) -> @ajax url, 'POST', options
+  update: (url, options) -> @ajax url, 'PATCH', options
+  delete: (url, options) -> @ajax url, 'DELETE', options
+
+  #
 # mix the Events functions into the Store prototype
 _.extend(Store::, Events)
 
