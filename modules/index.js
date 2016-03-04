@@ -31,6 +31,6 @@ module.exports = {
   Utils:  require('./utils'),
 
   superagent: require('superagent'),
-  RSVP: require('RSVP')
+  RSVP: require('rsvp')
 
 };
