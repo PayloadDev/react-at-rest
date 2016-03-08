@@ -109,6 +109,7 @@ getUpdatedModel()
 The `validations` object maps field names to client-side validations. It currently supports:
 * `required`: Boolean. Set if the field is required to have a value.
 * `regexp`: RegularExpression. The field value must match the expression.
+* `func`: Function. Custom validation method, called as func(value). Should return false when invalid.
 
 Validations are executed and must pass prior to submitting anything to the API.
 
