@@ -39,6 +39,7 @@ module.exports = class RestForm extends EventableComponent
   # possible validations are:
   #    required:  bool                (allow empty, also show required flag in UI)
   #    regexp:    RegularExpression   (reg exp to validate against)
+  #    func:      Function            (calls func(fieldvalue), expects true or false)
   #    fieldName: string              (alternate fieldname to use in the errors object)
   #
   # eg. name:
@@ -207,7 +208,7 @@ module.exports = class RestForm extends EventableComponent
       if validation.required and (not modelValue? or modelValue is '' or modelValue.length is 0)
         errors ?= {}
         _.set errors, validation.fieldName ? name, ['Can\'t be blank']
-      if modelValue? and validation.regexp?.test(modelValue) is false
+      if modelValue? and (validation.regexp?.test(modelValue) is false or validation.func?(modelValue) is false)
         errors ?= {}
         _.set errors, validation.fieldName ? name, ['Invalid entry']
 

@@ -331,11 +331,11 @@ class Store
     deferred
 
   # direct access to REST verbs
-  get:    (url, options) -> @ajax url, 'GET', options
-  index:  (url, options) -> @ajax url, 'GET', options
-  post:   (url, options) -> @ajax url, 'POST', options
-  update: (url, options) -> @ajax url, 'PATCH', options
-  delete: (url, options) -> @ajax url, 'DELETE', options
+  get:    (url, data) -> @ajax url, 'GET', data
+  index:  (url, data) -> @ajax url, 'GET', data
+  post:   (url, data) -> @ajax url, 'POST', data
+  update: (url, data) -> @ajax url, 'PATCH', data
+  delete: (url, data) -> @ajax url, 'DELETE', data
 
   #
 # mix the Events functions into the Store prototype
