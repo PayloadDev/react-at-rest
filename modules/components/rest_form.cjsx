@@ -26,9 +26,6 @@ module.exports = class RestForm extends EventableComponent
     onChange:  React.PropTypes.func
     onSuccess: React.PropTypes.func
 
-  @contextTypes =
-    history:  React.PropTypes.object
-    location: React.PropTypes.object
 
   # array of attribute names which will never be submitted in a CREATE/UPDATE API request
   # useful for forms which use transient fields for UI that aren't meant to be part of the model
