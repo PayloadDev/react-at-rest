@@ -90,7 +90,7 @@ module.exports = {
     url = "#{location.pathname}?#{@toQueryStr query}"
     # backwards compatibility with react-router 1.0.0
     if history.replace?
-      history.replaceState url
+      history.replace url
     else
       history.replaceState null, url
 
