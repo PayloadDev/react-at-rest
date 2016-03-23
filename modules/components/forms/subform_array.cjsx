@@ -11,6 +11,7 @@ _ =
 module.exports = class SubFormArray extends React.Component
 
   @propTypes =
+    addResourceButton:   React.PropTypes.node
     destroyWorkaround:   React.PropTypes.bool
     errors:              React.PropTypes.object
     name:                React.PropTypes.string
@@ -76,9 +77,9 @@ module.exports = class SubFormArray extends React.Component
 
 
   render: ->
-    addBtn = if @props.addResourceButton?
+    addItemButton = if @props.addResourceButton?
       React.cloneElement @props.addResourceButton,
-        key:     'addBtn'
+        key:     'addItemButton'
         onClick: @addItem
 
     # attach the props to all the children
@@ -94,4 +95,4 @@ module.exports = class SubFormArray extends React.Component
 
     React.createElement @props.componentTagName,
       className: @props.wrapperClassName,
-        [childComponents, addBtn]
+        [childComponents, addItemButton]
