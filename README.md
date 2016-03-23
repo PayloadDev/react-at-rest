@@ -1,5 +1,5 @@
 # React-at-Rest
-An opinionated toolkit for building web applications using React and RESTful APIs.
+A toolkit for building ridiculously fast web applications using React and RESTful APIs.
 
 ![Codeship Badge](https://codeship.com/projects/27ad5260-a389-0133-6b2c-3a486f5179bd/status?branch=master)
 
