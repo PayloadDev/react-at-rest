@@ -20,11 +20,13 @@ module.exports = class SubFormArray extends React.Component
     wrapperClassName:    React.PropTypes.string
 
   @defaultProps =
+    componentTagName:    'div'
+    destroyWorkaround:   false
+    permittedProperties: []
   # when singular=true, don't render +/- UI elements
     singular:            false
-    permittedProperties: []
+    value:               []
     wrapperClassName:    'well well-sm'
-    destroyWorkaround:   false
 
 
   componentDidMount: ->
@@ -74,33 +76,22 @@ module.exports = class SubFormArray extends React.Component
 
 
   render: ->
-    # ignore "null" values
-    models = _.compact _.reject(@props.value, _destroy: '1')
-
-    if models is [] then models = [{}]
+    addBtn = if @props.addResourceButton?
+      React.cloneElement @props.addResourceButton,
+        key:     'addBtn'
+        onClick: @addItem
 
     # attach the props to all the children
-    childComponents = for model, index in models
+    childComponents = for model, index in @props.value when model?._destroy isnt '1'
       React.Children.map @props.children, (child) =>
-        childComponent = React.cloneElement child,
+        React.cloneElement child,
+          key:      index
           errors:   @props.errors
           model:    _.cloneDeep model
           name:     "#{@props.name}[#{index}]"
           onChange: @propagateChanges
-        delBtn = <a className="btn btn-xs btn-danger pull-right" onClick={@removeItem index}>
-          <i className='fa-trash fa'/> {t 'buttons.delete'}
-        </a> unless @props.singular
+          onRemove: @removeItem index
 
-        <div className={@props.wrapperClassName}>
-          {delBtn}
-          {childComponent}
-        </div>
-
-    addBtn = <a className="btn btn-xs btn-default" onClick={@addItem}>
-      <i className='fa-plus fa'/>
-    </a> unless @props.singular
-
-    <div>
-      {childComponents}
-      {addBtn}
-    </div>
+    React.createElement @props.componentTagName,
+      className: @props.wrapperClassName,
+        [childComponents, addBtn]
