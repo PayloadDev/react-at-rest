@@ -5,7 +5,7 @@
     "node": "4.x",
     "npm": "2.x"
   },
-  "description": "An opinionated toolkit for building web applications using React and RESTful APIs.",
+  "description": "A toolkit for building ridiculously fast web applications using React and RESTful APIs.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "mocha  --compilers coffee:coffee-react/register,cjsx:coffee-react/register --recursive --require ./test/setup.coffee",
