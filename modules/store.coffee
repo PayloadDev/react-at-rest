@@ -343,7 +343,7 @@ _.extend(Store::, Events)
 
 # handle any uncaught errors in our Promise chain
 RSVP.on 'error', (reason) ->
-  return unless reason?
-  console.error(reason.stack ? reason.message) if reason.stack or reason.message
+  # webkit and blink have different ways of logging the stack, so check for the Apple vendor string
+  console.error(if navigator.vendor.indexOf('Apple') >= 0 then reason else reason.stack) if reason?
 
 module.exports = Store
