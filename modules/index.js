@@ -12,6 +12,7 @@ module.exports = {
   Forms:              {
     CheckboxInput: require('./components/forms/checkbox_input'),
     ErrorSummary:  require('./components/forms/error_summary'),
+    EmailInput:    require('./components/forms/email_input'),
     FieldErrors:   require('./components/forms/field_errors'),
     FieldHint:     require('./components/forms/field_hint'),
     FieldWrapper:  require('./components/forms/field_wrapper'),
