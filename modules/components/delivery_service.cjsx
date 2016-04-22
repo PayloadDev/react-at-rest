@@ -40,23 +40,22 @@ module.exports = class DeliveryService extends EventableComponent
 
 
   componentWillReceiveProps: (nextProps) ->
-    # if React.Router is not being used, don't bother checking for data refetch
-    return unless nextProps.params? or nextProps.location?
+    # if React.Router is being used, do some additional change checks agains the URL
+    if nextProps.params? or nextProps.location?
+      idSegment = @routeParamKey ? _.last (k for k,v of nextProps.params when k[-2..] is 'Id')
 
-    idSegment = @routeParamKey ? _.last (k for k,v of nextProps.params when k[-2..] is 'Id')
+      if idSegment?
+        idChanged = nextProps.params?[idSegment] isnt @props.params?[idSegment]
+      else
+        idChanged = false
 
-    if idSegment?
-      idChanged = nextProps.params?[idSegment] isnt @props.params?[idSegment]
-    else
-      idChanged = false
+      # the idSegment is the first dynamic param present in the @props.params object from the router.
+      # it is the segment that represents the parent object which is what needs to be reloaded when the url changes.
+      # if this segment hasn't changed, no need to reload all the bound resources.
+      return if not idChanged and _.isEqual(nextProps.location?.query, @props.location?.query)
 
-    # the idSegment is the first dynamic param present in the @props.params object from the router.
-    # it is the segment that represents the parent object which is what needs to be reloaded when the url changes.
-    # if this segment hasn't changed, no need to reload all the bound resources.
-    return if not idChanged and _.isEqual(nextProps.location?.query, @props.location?.query)
-
-    # show the loading UI unless we're just updating the query
-    @setState loaded: false if idChanged
+      # show the loading UI unless we're just updating the query
+      @setState loaded: false if idChanged
 
     @stopPolling()
     @stopListeningToBoundResources()
