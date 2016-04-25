@@ -47,6 +47,19 @@ class UserIndexPage extends DeliveryService
     </div>
 ```
 
+## Refetching Data
+
+Data is refetched during the `componentWillReceiveProps` React lifecycle method. DeliveryService tries to be somewhat smart about this,
+especially if the component is a Route (when using React-Router). However, it is possible that the default behaviour will result in excessive
+data reloads for your particular project.
+
+In this case, you can extend `componentWillReceiveProps` to check for the specific changes which should result in rebinding for your app.
+
+```coffeescript
+componentWillReceiveProps: (nextProps) ->
+  super nextProps if nextProps.dataId isnt @props.dataId
+```
+
 ## Binding Methods
 #### subscribeAll()
 
