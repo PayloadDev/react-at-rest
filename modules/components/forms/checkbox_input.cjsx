@@ -3,6 +3,7 @@ FieldWrapper    = require './field_wrapper'
 
 _ =
   extend:    require 'lodash/object/extend'
+  omit:      require 'lodash/object/omit'
   startCase: require 'lodash/string/startCase'
 
 React      = require 'react'
@@ -12,22 +13,26 @@ classNames = require 'classnames'
 module.exports = class CheckboxInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    onBlur: React.PropTypes.func
+    hideLabel: React.PropTypes.bool
+    onBlur:    React.PropTypes.func
 
+  @defaultProps =
+    hideLabel: false
 
   render: ->
-    className = classNames 'checkbox', @props.className
+    className  = classNames 'checkbox', @props.className
+    inputProps = _.omit @props, 'className'
 
     <div className={className}>
-      <FieldWrapper errors={@props.errors}>
+      <FieldWrapper errors={@props.errors} formGroup={false}>
         <label className={@props.labelClassName}>
           <div className={@props.inputWrapperClassName}>
             <input
-              {...@props}
+              {...inputProps}
               checked={@state.value}
               type='checkbox'
               onChange={@handleChange} />
-            {@props.label ? _.startCase @props.name}
+            {unless @props.hideLabel then @props.label ? _.startCase @props.name}
           </div>
         </label>
       </FieldWrapper>
