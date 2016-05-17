@@ -43,7 +43,7 @@ module.exports = class TextInput extends RestFormElement
             value={@state.value}
             className="form-control"
             onChange={@handleChange} />
-          <FieldHint hint={@props.hint} />
+          <FieldHint hint={@props.hint} className={@props.hintClassName} />
           <FieldErrors errors={@props.errors} />
         </div>
       </FieldWrapper>

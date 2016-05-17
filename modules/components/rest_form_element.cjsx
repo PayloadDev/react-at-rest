@@ -8,6 +8,7 @@ module.exports = class RestFormElement extends React.Component
   @propTypes =
     disabled:              React.PropTypes.bool
     hint:                  React.PropTypes.string
+    hintClassName:         React.PropTypes.string
     inputWrapperClassName: React.PropTypes.string
     label:                 React.PropTypes.string
     labelClassName:        React.PropTypes.string

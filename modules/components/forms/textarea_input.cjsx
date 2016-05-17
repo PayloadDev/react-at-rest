@@ -48,6 +48,6 @@ module.exports = class TextAreaInput extends RestFormElement
           className={classes}
           onChange={@handleChange} />
       </div>
-      <FieldHint hint={@props.hint} />
+      <FieldHint hint={@props.hint} className={@props.hintClassName} />
       <FieldErrors errors={@props.errors}/>
     </FieldWrapper>

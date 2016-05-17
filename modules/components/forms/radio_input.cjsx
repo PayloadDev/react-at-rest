@@ -41,7 +41,7 @@ module.exports = class RadioInput extends RestFormElement
         {label}
         <div className={@props.inputWrapperClassName}>
           {@renderRadioOptions()}
-          <FieldHint hint={@props.hint} />
+          <FieldHint hint={@props.hint} className={@props.hintClassName} />
           <FieldErrors errors={@props.errors} />
         </div>
       </FieldWrapper>
