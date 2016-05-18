@@ -56,7 +56,7 @@ module.exports = class SelectInput extends RestFormElement
             className='form-control' >
             {selectOptions}
           </select>
-          <FieldHint hint={@props.hint} />
+          <FieldHint hint={@props.hint} className={@props.hintClassName} />
           <FieldErrors errors={@props.errors} />
         </div>
       </FieldWrapper>

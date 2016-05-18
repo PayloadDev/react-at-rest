@@ -1,17 +1,20 @@
-React = require 'react'
+classNames = require 'classnames'
+React      = require 'react'
 
 module.exports = class FieldHint extends React.Component
 
   @displayName = 'FieldHint'
 
   @propTypes =
-    hint: React.PropTypes.oneOfType([
-            React.PropTypes.string
-            React.PropTypes.object
-          ])
+    className: React.PropTypes.string
+    hint:      React.PropTypes.oneOfType([
+                React.PropTypes.string
+                React.PropTypes.object
+              ])
 
   render: ->
     return null unless @props.hint?
-    <span className="help-block">
+
+    <span className={classNames 'help-block', @props.className}>
       {@props.hint}
     </span>
