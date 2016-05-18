@@ -39,8 +39,8 @@
   "devDependencies": {
     "cjsx-loader": "3.0.0",
     "coffee-loader": "0.7.2",
-    "coffee-react": "^4.1.0",
-    "coffee-react-transform": "4.0.0",
+    "coffee-react": "^5.0.0",
+    "coffee-react-transform": "^4.0.0",
     "coffee-script": "^1.10.0",
     "expect": "^1.13.4",
     "jsdom": "^7.2.2",
