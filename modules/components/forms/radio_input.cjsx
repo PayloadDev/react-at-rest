@@ -19,6 +19,7 @@ module.exports = class RadioInput extends RestFormElement
             name={@props.name}
             checked={@state.value?.toString() is option.value.toString()}
             value={option.value}
+            disabled={option.disabled}
             type='radio'
             onChange={@handleChange} />
           {option.name}<br/>
