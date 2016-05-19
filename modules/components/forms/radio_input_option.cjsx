@@ -1,5 +1,6 @@
 classNames     = require 'classnames'
 shallowCompare = require 'react-addons-shallow-compare'
+React          = require 'react'
 
 module.exports = class RadioInputOption extends React.Component
 

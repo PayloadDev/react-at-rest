@@ -3,6 +3,7 @@ FieldErrors      = require './field_errors'
 FieldHint        = require './field_hint'
 Label            = require './label'
 RadioInputOption = require './radio_input_option'
+React            = require 'react'
 RestFormElement  = require '../rest_form_element'
 
 classNames = require 'classnames'
