@@ -21,14 +21,7 @@ module.exports = class TextAreaInput extends RestFormElement
     value:        React.PropTypes.string
 
 
-  shouldComponentUpdate: (nextProps, nextState) ->
-    unless _.isEqual nextProps.style, @props.style
-      return true
-    super nextProps, nextState
-
-
   render: ->
-    label = null
     unless @props.hideLabel
       label = <Label
         label={@props.label}
@@ -44,7 +37,7 @@ module.exports = class TextAreaInput extends RestFormElement
       <div className={@props.inputWrapperClassName}>
         <textarea
           {...@props}
-          value={@state.value}
+          value={@props.value}
           className={classes}
           onChange={@handleChange} />
       </div>
