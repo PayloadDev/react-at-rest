@@ -21,7 +21,6 @@ module.exports = class TextInput extends RestFormElement
 
   @defaultProps =
     inputType: 'text'
-    value:     ''
 
 
   render: ->

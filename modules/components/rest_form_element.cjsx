@@ -20,6 +20,10 @@ module.exports = class RestFormElement extends React.Component
     value:                 React.PropTypes.any
 
 
+  @defaultProps =
+    value: ''
+
+
   componentWillMount: ->
     if @props.defaultValue and not @props.value
       @props.onChange @props.name, @props.defaultValue
