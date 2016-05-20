@@ -2,7 +2,6 @@ FieldWrapper     = require './field_wrapper'
 FieldErrors      = require './field_errors'
 FieldHint        = require './field_hint'
 Label            = require './label'
-RadioInputOption = require './radio_input_option'
 React            = require 'react'
 RestFormElement  = require '../rest_form_element'
 
@@ -31,14 +30,19 @@ module.exports = class RadioInput extends RestFormElement
   renderOption: (option) ->
     checked = @props.value?.toString() is option.value.toString()
 
-    <RadioInputOption
-      key={option.value}
-      name={option.name}
-      checked={checked}
-      value={option.value}
-      disabled={option.disabled}
-      type='radio'
-      onChange={@handleChange} />
+    <div className='radio'>
+      <label>
+        <input
+          name={option.name}
+          checked={checked}
+          value={option.value}
+          disabled={option.disabled}
+          type='radio'
+          onChange={@props.onChange} />
+        {option.name}
+        <br/>
+      </label>
+    </div>
 
 
   render: ->
