@@ -13,15 +13,17 @@ _ = extend: require 'lodash/object/extend'
 module.exports = class SelectInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    divClass:  React.PropTypes.string
-    hideLabel: React.PropTypes.bool
-    multiple:  React.PropTypes.bool
-    onChange:  React.PropTypes.func
-    options:   React.PropTypes.array
-    prompt:    React.PropTypes.bool
+    divClass:   React.PropTypes.string
+    hideLabel:  React.PropTypes.bool
+    multiple:   React.PropTypes.bool
+    onChange:   React.PropTypes.func
+    options:    React.PropTypes.array
+    prompt:     React.PropTypes.bool
+    promptText: React.PropTypes.string
 
   @defaultProps =
-    prompt: true
+    prompt:      true
+    promptText: 'Choose one...'
 
 
   componentDidMount: ->
@@ -44,7 +46,7 @@ module.exports = class SelectInput extends RestFormElement
       <option key={id} value={id}>{name}</option>
 
     if @props.prompt
-      selectOptions.unshift <option key="-1">Choose one...</option>
+      selectOptions.unshift <option key="-1">{@props.promptText}</option>
 
     <div className={@props.className} style={@props.style}>
       <FieldWrapper errors={@props.errors}>

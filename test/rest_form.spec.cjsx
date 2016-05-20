@@ -45,7 +45,7 @@ describe 'RestForm', ->
       # check onSuccess callback returned with data from Store
       successSpy = expect.createSpy().andCall (data) ->
         expect(successSpy).toHaveBeenCalled()
-        expect(data.user.attributes).toEqual { bing: 'bong', name: 'test data', id: 99 }
+        expect(data.user).toInclude { bing: 'bong', name: 'test data', id: 99 }
         done()
 
       component = TestUtils.renderIntoDocument <UserForm

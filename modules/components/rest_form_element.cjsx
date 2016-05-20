@@ -1,7 +1,5 @@
-React = require 'react'
-_ =
-  isEqual: require 'lodash/lang/isEqual'
-
+React          = require 'react'
+shallowCompare = require 'react-addons-shallow-compare'
 
 module.exports = class RestFormElement extends React.Component
 
@@ -35,16 +33,7 @@ module.exports = class RestFormElement extends React.Component
 
 
   shouldComponentUpdate: (nextProps, nextState) ->
-    # always render if entering or leaving an error state
-    return true if (nextProps.errors or (@props.errors and @props.errors.length) or nextState.errors)
-    # self-imposed state changes should update
-    return true unless _.isEqual(nextState, @state)
-    # prevent re-renders if the incoming value hasn't changed
-    return false if _.isEqual(nextState.value, @props.value)
-    # no need to re-render if we're just setting the default value
-    return false if _.isEqual @props.defaultValue, nextState.value
-
-    true
+    shallowCompare @, nextProps, nextState
 
 
   #
