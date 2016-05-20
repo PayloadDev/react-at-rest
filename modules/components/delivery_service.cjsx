@@ -77,7 +77,7 @@ module.exports = class DeliveryService extends EventableComponent
     # override in child class
 
 
-  bindResource: (store, eventName, callback=@setStateFromStore, options={}) ->
+  bindResource: (store, eventName, options={}) ->
     defaults = if _.isFunction @defaultQuery then @defaultQuery(store) else @defaultQuery
     options.query = _.merge {}, defaults, options.query if defaults?
 
@@ -85,7 +85,6 @@ module.exports = class DeliveryService extends EventableComponent
       store:     store
       eventName: eventName
       options:   options
-      callback:  callback
 
 
   # Notes for: subscribeAll, subscribeResource, retrieveAll, retrieveResource
@@ -101,35 +100,31 @@ module.exports = class DeliveryService extends EventableComponent
   #
   # @param    store               [Object]   The store which is managing the resources
   # @param    options             [Object]   Options to pass to the store. Options: id, parentResource, query.
-  #           options.callback    [Function] Method to bind the event to (Optional)
-  #
-  # alternative (1.0 compatible) signature: (store, callback, options)
-  # as of 2.0.0 DeliveryService accepts both signatures but (store, options) is preferred
   #
   subscribeAll: (store, rest...) ->
     options = @mungeArgs rest
-    @bindResource store, 'reset', options.callback, options
+    @bindResource store, 'reset', options
 
 
   subscribeResource: (store, rest...) ->
     options = @mungeArgs rest
-    @bindResource store, 'fetch', options.callback, options
+    @bindResource store, 'fetch', options
 
 
   retrieveAll: (store, rest...) ->
     options = @mungeArgs rest
-    @bindResource store, 'resetonce', options.callback, options
+    @bindResource store, 'resetonce', options
 
 
   retrieveResource: (store, rest...) ->
     options = @mungeArgs rest
-    @bindResource store, 'fetchonce', options.callback, options
+    @bindResource store, 'fetchonce', options
 
 
   mungeArgs: (args) ->
-    if _.isFunction args[0]
-      options = callback: args[0]
-      options = _.merge options, args[1] ? {}
+    if args[1]?
+      console.error 'Warning: bindResources callbacks are deprecated in React-at-Rest 2.0.0+'
+      options = args[1]
     else
       options = args[0]
     options
@@ -176,7 +171,7 @@ module.exports = class DeliveryService extends EventableComponent
     for sub in @boundResources
       do (sub) =>
         if sub.eventName in ['fetch', 'reset']
-          @listenTo sub.store, sub.eventName, sub.callback
+          @listenTo sub.store, sub.eventName, @setStateFromStore
           sub.store.startPolling sub.options
 
 
@@ -186,17 +181,17 @@ module.exports = class DeliveryService extends EventableComponent
         # ensure local creates/updates are synced to the state
         if sub.eventName in ['reset', 'resetonce']
           @listenTo sub.store, 'create', (resource, resources) =>
-            (sub.callback) resources
+            @setStateFromStore resources
           @listenTo sub.store, 'destroy', (resources) =>
-            (sub.callback) resources
+            @setStateFromStore resources
           @listenTo sub.store, 'update', (resource, resources) =>
-            (sub.callback) resources
+            @setStateFromStore resources
 
         # when fetching a single resource, trigger an update when that specific resource is updated
         if sub.eventName in ['fetch', 'fetchonce']
           @listenTo sub.store, 'update', (resource, resources) =>
             if parseInt(resource[sub.store.resourceKey].id) is parseInt(sub.options?.id)
-              (sub.callback) resource
+              @setStateFromStore resource
 
 
   stopPolling: ->
@@ -206,7 +201,7 @@ module.exports = class DeliveryService extends EventableComponent
   stopListeningToBoundResources: =>
     for sub in @boundResources
       if sub.eventName in ['fetch', 'reset']
-        @stopListening sub.store, sub.eventName, sub.callback
+        @stopListening sub.store, sub.eventName, @setStateFromStore
       # stop local events
       if sub.eventName in ['reset', 'resetonce']
         @stopListening sub.store, 'create'
