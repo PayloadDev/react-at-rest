@@ -77,7 +77,7 @@ module.exports = class DeliveryService extends EventableComponent
     # override in child class
 
 
-  bindResource: (store, eventName, callback, options={}) ->
+  bindResource: (store, eventName, callback=@setStateFromStore, options={}) ->
     defaults = if _.isFunction @defaultQuery then @defaultQuery(store) else @defaultQuery
     options.query = _.merge {}, defaults, options.query if defaults?
 
@@ -99,24 +99,40 @@ module.exports = class DeliveryService extends EventableComponent
   # - the store starts polling subscribed resources
   # - events are cleared and polling is stopped when the component unmounts
   #
-  # @param    store       [Object]   The store which is managing the resources
-  # @param    callback    [Function] Method to bind the event to
-  # @param    options     [Object]   Options to pass to the store. Options: id, parentResource, query.
+  # @param    store               [Object]   The store which is managing the resources
+  # @param    options             [Object]   Options to pass to the store. Options: id, parentResource, query.
+  #           options.callback    [Function] Method to bind the event to (Optional)
   #
-  subscribeAll: (store, callback, options) ->
-    @bindResource store, 'reset', callback, options
+  # alternative (1.0 compatible) signature: (store, callback, options)
+  # as of 2.0.0 DeliveryService accepts both signatures but (store, options) is preferred
+  #
+  subscribeAll: (store, rest...) ->
+    options = @mungeArgs rest
+    @bindResource store, 'reset', options.callback, options
 
 
-  subscribeResource: (store, callback, options) ->
-    @bindResource store, 'fetch', callback, options
+  subscribeResource: (store, rest...) ->
+    options = @mungeArgs rest
+    @bindResource store, 'fetch', options.callback, options
 
 
-  retrieveAll: (store, callback, options) ->
-    @bindResource store, 'resetonce', callback, options
+  retrieveAll: (store, rest...) ->
+    options = @mungeArgs rest
+    @bindResource store, 'resetonce', options.callback, options
 
 
-  retrieveResource: (store, callback, options) ->
-    @bindResource store, 'fetchonce', callback, options
+  retrieveResource: (store, rest...) ->
+    options = @mungeArgs rest
+    @bindResource store, 'fetchonce', options.callback, options
+
+
+  mungeArgs: (args) ->
+    if _.isFunction args[0]
+      options = callback: args[0]
+      options = _.merge options, args[1] ? {}
+    else
+      options = args[0]
+    options
 
 
   # tell the store to retrieve all the bound resources
@@ -160,7 +176,7 @@ module.exports = class DeliveryService extends EventableComponent
     for sub in @boundResources
       do (sub) =>
         if sub.eventName in ['fetch', 'reset']
-          @listenTo sub.store, sub.eventName, sub.callback ? @setStateFromStore
+          @listenTo sub.store, sub.eventName, sub.callback
           sub.store.startPolling sub.options
 
 
@@ -170,17 +186,17 @@ module.exports = class DeliveryService extends EventableComponent
         # ensure local creates/updates are synced to the state
         if sub.eventName in ['reset', 'resetonce']
           @listenTo sub.store, 'create', (resource, resources) =>
-            (sub.callback ? @setStateFromStore) resources
+            (sub.callback) resources
           @listenTo sub.store, 'destroy', (resources) =>
-            (sub.callback ? @setStateFromStore) resources
+            (sub.callback) resources
           @listenTo sub.store, 'update', (resource, resources) =>
-            (sub.callback ? @setStateFromStore) resources
+            (sub.callback) resources
 
         # when fetching a single resource, trigger an update when that specific resource is updated
         if sub.eventName in ['fetch', 'fetchonce']
           @listenTo sub.store, 'update', (resource, resources) =>
             if parseInt(resource[sub.store.resourceKey].id) is parseInt(sub.options?.id)
-              (sub.callback ? @setStateFromStore) resource
+              (sub.callback) resource
 
 
   stopPolling: ->
@@ -190,7 +206,7 @@ module.exports = class DeliveryService extends EventableComponent
   stopListeningToBoundResources: =>
     for sub in @boundResources
       if sub.eventName in ['fetch', 'reset']
-        @stopListening sub.store, sub.eventName, sub.callback ? @setStateFromStore
+        @stopListening sub.store, sub.eventName, sub.callback
       # stop local events
       if sub.eventName in ['reset', 'resetonce']
         @stopListening sub.store, 'create'
