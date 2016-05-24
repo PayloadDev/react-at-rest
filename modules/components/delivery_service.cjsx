@@ -93,7 +93,7 @@ module.exports = class DeliveryService extends EventableComponent
   # The 'retrieve*' methods request the resource a single time
   #
   # - subscribed resources are fetched when the component mounts and when the component receives props
-  # - resources are denormalized by the store and attached to the component's state
+  # - resources are parsed by the store and attached to the component's state
   # - the component starts listening to the subscribed event on the store
   # - the store starts polling subscribed resources
   # - events are cleared and polling is stopped when the component unmounts
