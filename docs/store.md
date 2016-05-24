@@ -143,29 +143,29 @@ path(
 
 **returns: String**
 
-###denormalizeResource()
+###parseResource()
 
 ```
-denormalizeResource(
+parseResource(
   Object data
 )
 ```
 
-* hook for denormalizing the returned singular data into the format expected by the application
+* hook for parsing the returned singular data into the format expected by the application
 * when overriding, return the modified data
 * `data`: the raw JSON object returned by the API
 
 **returns: Object**
 
-###denormalizeAll()
+###parseAll()
 
 ```
-denormalizeAll(
+parseAll(
   Object data
 )
 ```
 
-* hook for denormalizing the returned index data into the format expected by the application
+* hook for parsing the returned index data into the format expected by the application
 * when overriding, return the modified data
 * `data`: the raw JSON object returned by the API
 
