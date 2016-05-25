@@ -17,19 +17,13 @@ module.exports = class RestFormElement extends React.Component
     value:                 React.PropTypes.any
 
 
-  constructor: (props) ->
-    @state =
-      value: props.value ? props.defaultValue ? ''
+  @defaultProps =
+    value: ''
 
 
   componentWillMount: ->
     if @props.defaultValue and not @props.value
       @props.onChange @props.name, @props.defaultValue
-
-
-  componentWillReceiveProps: (nextProps) ->
-    # update the input with a value passed down from the form
-    @setState value: nextProps.value ? ''
 
 
   shouldComponentUpdate: (nextProps, nextState) ->
@@ -51,5 +45,4 @@ module.exports = class RestFormElement extends React.Component
       when 'checkbox' then el.checked
       else el.value ? ''
 
-    @setState value: value
     @props.onChange @props.name, value

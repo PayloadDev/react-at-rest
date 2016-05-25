@@ -1,30 +1,48 @@
-RestFormElement = require '../rest_form_element'
-FieldWrapper    = require './field_wrapper'
-FieldErrors     = require './field_errors'
-FieldHint       = require './field_hint'
-Label           = require './label'
+FieldWrapper     = require './field_wrapper'
+FieldErrors      = require './field_errors'
+FieldHint        = require './field_hint'
+Label            = require './label'
+React            = require 'react'
+RestFormElement  = require '../rest_form_element'
 
 classNames = require 'classnames'
+_ =
+  extend: require 'lodash/object/extend'
 
 
 module.exports = class RadioInput extends RestFormElement
 
   @displayName = 'RadioInput'
 
-  renderRadioOptions: ->
-    for option in @props.options
-      <div className='radio' key={option.value}>
-        <label>
-          <input
-            name={@props.name}
-            checked={@state.value?.toString() is option.value.toString()}
-            value={option.value}
-            disabled={option.disabled}
-            type='radio'
-            onChange={@handleChange} />
-          {option.name}<br/>
-        </label>
-      </div>
+
+  @propTypes = _.extend {}, RestFormElement.propTypes,
+    options: React.PropTypes.arrayOf React.PropTypes.shape(
+      name:     React.PropTypes.string.isRequired
+      value:    React.PropTypes.any.isRequired
+      disabled: React.PropTypes.bool
+    )
+
+
+  @defaultProps =
+    options: []
+
+
+  renderOption: (option) ->
+    checked = @props.value?.toString() is option.value.toString()
+
+    <div className='radio'>
+      <label>
+        <input
+          name={option.name}
+          checked={checked}
+          value={option.value}
+          disabled={option.disabled}
+          type='radio'
+          onChange={@props.onChange} />
+        {option.name}
+        <br/>
+      </label>
+    </div>
 
 
   render: ->
@@ -41,7 +59,7 @@ module.exports = class RadioInput extends RestFormElement
       <FieldWrapper errors={@props.errors}>
         {label}
         <div className={@props.inputWrapperClassName}>
-          {@renderRadioOptions()}
+          {@renderOption option for option in @props.options}
           <FieldHint hint={@props.hint} className={@props.hintClassName} />
           <FieldErrors errors={@props.errors} />
         </div>
