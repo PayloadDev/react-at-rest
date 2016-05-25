@@ -92,6 +92,7 @@ module.exports = class SubFormArray extends React.Component
 
         React.cloneElement child,
           key:      name
+          index:    index
           errors:   @props.errors
           model:    _.cloneDeep model
           name:     name
