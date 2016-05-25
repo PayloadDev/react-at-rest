@@ -19,7 +19,7 @@ module.exports = class TextInput extends RestFormElement
     onChange:    React.PropTypes.func
     style:       React.PropTypes.object
 
-  @defaultProps =
+  @defaultProps = _.extend {}, RestFormElement.defaultProps,
     inputType: 'text'
 
 
@@ -40,7 +40,7 @@ module.exports = class TextInput extends RestFormElement
             ref='element'
             {...@props}
             type={@props.inputType}
-            value={@state.value}
+            value={@props.value}
             className="form-control"
             onChange={@handleChange} />
           <FieldHint hint={@props.hint} className={@props.hintClassName} />

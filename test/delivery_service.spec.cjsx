@@ -41,3 +41,20 @@ describe 'DeliveryService', ->
           <h1 />
 
       component = TestUtils.renderIntoDocument <UserTestPage />
+
+  describe '#mungeArgs()', ->
+    it 'should detect a null first argument', ->
+      spy = expect.spyOn console, 'error'
+      options = DeliveryService::mungeArgs [null, {company: 'GloboChem'}]
+      expect(spy).toHaveBeenCalled()
+      expect(options).toEqual {company: 'GloboChem'}
+      expect.restoreSpies()
+
+    it 'should return options when there is 1 argument', ->
+      options = DeliveryService::mungeArgs [{company: 'GloboChem'}]
+      expect(options).toEqual {company: 'GloboChem'}
+
+    it 'should return null when there is a single null argument', ->
+      options = DeliveryService::mungeArgs [null]
+      expect(options).toEqual null
+

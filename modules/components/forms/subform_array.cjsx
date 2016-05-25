@@ -67,7 +67,7 @@ module.exports = class SubFormArray extends React.Component
   # capture the index at render time and return an event handler
   removeItem: (index) ->
     (e) =>
-      value = if @props.destroyWorkaround
+      value = if @props.destroyWorkaround and @props.value[index]?.id
         id:       @props.value[index].id
         _destroy: '1'
       else
@@ -82,16 +82,27 @@ module.exports = class SubFormArray extends React.Component
         key:     'addItemButton'
         onClick: @addItem
 
+    # Due to the fact that we have a destroyWorkaround we can't trust that the index
+    # represents the true representation of the first element. We'll store the first non-destoryed
+    # index so that children can conditionally render remove buttons etc.
+    firstPersistedRecordIndex = (index for prop,index in @props.value when prop._destroy isnt '1' or not prop.val)?[0]
+
     # attach the props to all the children
-    childComponents = for model, index in @props.value when model?._destroy isnt '1'
+    childComponents = for model, index in @props.value
+      # handle destroyed items and null items
+      if not model? or @props.destroyWorkaround and model?._destroy is '1' then continue
+
       React.Children.map @props.children, (child) =>
+        name = "#{@props.name}[#{index}]"
+
         React.cloneElement child,
-          key:      index
-          errors:   @props.errors
-          model:    _.cloneDeep model
-          name:     "#{@props.name}[#{index}]"
-          onChange: @propagateChanges
-          onRemove: @removeItem index
+          key:         name
+          errors:      @props.errors
+          firstRecord: firstPersistedRecordIndex isnt index
+          model:       _.cloneDeep model
+          name:        name
+          onChange:    @propagateChanges
+          onRemove:    @removeItem index
 
     React.createElement @props.componentTagName,
       className: @props.wrapperClassName,

@@ -1,6 +1,7 @@
 superagent = require 'superagent'
 mocker     = require('superagent-mocker')(superagent)
 expect     = require 'expect'
+_          = require 'lodash'
 
 {Store, Resource} = require '../modules'
 
@@ -80,11 +81,15 @@ describe 'Store', ->
       mocker.get '/users/1', (req) ->
         req.body =
           user: {id: 1, name: 'bob'}
-          meta: policies: [{user_id: 1, update: true, destroy: false}]
+          meta: policies: {update: true, destroy: false}
         req.ok = true
         req
 
       store = new Store 'users'
+      # create a getPolicies method
+      store.getPolicies = (data, id) ->
+        data.meta?.policies
+
       store.getResource(1).then (data) ->
         expect(data.user.canUpdate()).toBe true
         expect(data.user.canDestroy()).toBe false

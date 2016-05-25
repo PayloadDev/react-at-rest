@@ -24,7 +24,7 @@ GET /users/1
   company: { id: 2, name: 'GloboChem' }
 }
 ```
-React-at-Rest Stores provides [denormalization hooks](store.md#denormalizeAll) for transforming these related resources into a single nested object if desired. More on this later.
+React-at-Rest Stores provides [parse hooks](store.md#parseResource) for transforming these related resources into a single nested object if desired. More on this later.
 
 Enveloped APIs also make it easier to return metadata, such as pagination information:
 ```coffeescript

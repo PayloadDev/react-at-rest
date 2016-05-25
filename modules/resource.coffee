@@ -2,14 +2,21 @@ Utils = require './utils'
 
 module.exports = class Resource
 
-  constructor: (@attributes, @policy={}) ->
-    for key,val of @attributes
+  constructor: (attributes, policy) ->
+
+    # assign all the attributes to this object
+    for key,val of attributes
       do (key) =>
         Object.defineProperty @, key,
-          get: -> @attributes[key]
-          set: (val) -> @attributes[key] = val
+          value:      attributes[key]
+          enumerable: true
 
-    for key,val of @policy
+    # create non-enumerable policy methods
+    for key,val of policy
       do (key, val) =>
-        @["can#{Utils.capitalize key}"] = ->
-          val ? false
+        unless key[-3..] is '_id' then Object.defineProperty @, "can#{Utils.capitalize key}",
+          enumerable: false
+          value: ->
+            val ? false
+
+
