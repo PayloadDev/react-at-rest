@@ -19,7 +19,7 @@ module.exports = class TextInput extends RestFormElement
     onChange:    React.PropTypes.func
     style:       React.PropTypes.object
 
-  @defaultProps =
+  @defaultProps = _.extend {}, RestFormElement.defaultProps,
     inputType: 'text'
 
 
