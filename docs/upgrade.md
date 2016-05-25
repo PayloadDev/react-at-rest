@@ -6,6 +6,15 @@ The 2.0 release mostly addresses internal code cleanliness, but some potentially
 
 React-at-Rest now requires React 15.1.0 or higher.
 
+### RestFormElement
+The RestFormElement component no longer relies on keeping the form value in it's internal state, so a default state is not set. If you're extending RestFormElement and expecting `this.state` to exist, you'll need to explicity set it.
+
+eg.
+```
+constructor: (props) ->
+  @state = open: true
+```
+
 ### DeliveryService
 The data binding methods no longer take a callback function. The method signature is now
 ```
