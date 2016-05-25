@@ -4,6 +4,8 @@
 
 The 2.0 release mostly addresses internal code cleanliness, but some potentially breaking changes exist.
 
+React-at-Rest now requires React 15.1.0 or higher.
+
 ### DeliveryService
 The data binding methods no longer take a callback function. The method signature is now
 ```
