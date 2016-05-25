@@ -1,6 +1,6 @@
 {
   "name": "react-at-rest",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "engines": {
     "node": "4.x",
     "npm": "2.x"
@@ -47,6 +47,7 @@
     "lodash": "^3.10.1",
     "mocha": "^2.3.4",
     "react": "^0.14.0 || ^15.0.1",
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.1",
     "react-addons-test-utils": "^0.14.0 || ^15.0.1",
     "react-addons-shallow-compare": "^0.14.0 || ^15.0.1",
     "react-dom": "^0.14.0 || ^15.0.1",

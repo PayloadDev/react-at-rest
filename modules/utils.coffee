@@ -47,7 +47,10 @@ module.exports = {
   #
   # @return [String]
   capitalize: (str) ->
-    str[0].toUpperCase() + str[1...]
+    if str[0]?
+      str[0].toUpperCase() + str[1...]
+    else
+      str
 
 
   # convert to an integer, but return 'undefined' if the number cannot be parsed

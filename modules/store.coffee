@@ -76,6 +76,16 @@ class Store
     @resources[@resourcesKey] = []
 
 
+  # Get a specific resource
+  getStoredResource: (id) ->
+    _.find @getStoredResources(), id: parseInt(id,10)
+
+
+  # Get resources array
+  getStoredResources: ->
+    @resources[@resourcesKey]
+
+
   # stores the metadata associated with the most recent response
   setMeta: (data) ->
     @resources.meta = data.meta
@@ -96,7 +106,7 @@ class Store
 
     @index(url)
       .then (data) =>
-        data = @denormalizeAll data
+        data = @parseAll data
         root = if Store.API_ENVELOPE then data[@resourcesKey] else data
 
         unless root?
@@ -110,15 +120,12 @@ class Store
 
         @setMeta data
 
-        # get the new and old ids for comparison of which resources are new
-        resourceIds = _.pluck @resources[@resourcesKey], 'id'
-        dataIds     = _.pluck root, 'id'
-        key         = options.namespace ? @resourcesKey
-        resources   =
+        key       = options.namespace ? @resourcesKey
+        resources =
           meta:     @resources.meta
-          "#{key}": @resources[@resourcesKey]
+          "#{key}": @getStoredResources()
 
-        @trigger 'reset', resources, _.difference(dataIds, resourceIds).length
+        @trigger 'reset', resources
 
         resources
 
@@ -136,13 +143,13 @@ class Store
     key = options.namespace ? @resourceKey
 
     if options.cache
-      resource = _.find(@resources[@resourcesKey], id: parseInt(id,10))
+      resource = @getStoredResource id
       return RSVP.Promise.resolve("#{key}": resource) if resource?
 
     url = @getPath 'show', id, options
     @get(url)
       .then (data) =>
-        data = @denormalizeResource data
+        data = @parseResource data
         root = if Store.API_ENVELOPE then data[@resourceKey] else data
 
         unless root?
@@ -151,6 +158,7 @@ class Store
         resource = @storeResource root, @getPolicies(data, root.id) if root?
         @trigger 'fetch', "#{key}": resource
 
+        meta:     data.meta
         "#{key}": resource
 
 
@@ -168,7 +176,7 @@ class Store
     url  = @getPath 'create', null, options
     @post(url, model)
       .then (data) =>
-        data     = @denormalizeResource data
+        data     = @parseResource data
         root     = if Store.API_ENVELOPE then data[@resourceKey] else data
         resource = @storeResource root, @getPolicies(data, root.id) if root?
 
@@ -188,7 +196,7 @@ class Store
     url  = @getPath 'update', id, options
     @update(url, patch)
       .then (data) =>
-        data     = @denormalizeResource data
+        data     = @parseResource data
         root     = if Store.API_ENVELOPE then data[@resourceKey] else data
         resource = @storeResource root, @getPolicies(data, root.id) if root?
         @trigger 'update', "#{@resourceKey}": resource, @resources
@@ -210,33 +218,30 @@ class Store
         @trigger 'destroy', @resources
 
 
-  # given the raw AJAX data, return the associated policies
+  # Given the raw AJAX data, return the associated policies
+  # This method is inteded to be overridden by Stores that interface with APIs that provide policies
   getPolicies: (data, id) ->
-    return null unless data.meta?.policies?
-
-    type = _.snakeCase @resourceKey
-
-    _.find(data.meta.policies, "#{type}_id": id)
+    null
 
 
-  # Denormalize all the data from the API response
-  # This method is intended to be overridden by any Store which needs to denormalize its data
+  # Parse all the data from the API response
+  # This method is intended to be overridden by any Store which needs to parse its data
   #
   # @param data  [Object]   The API response object (JSON)
   # @param query [Object]   Querystring filter
   #
-  # @return [Object]        The denormalized data (JSON)
-  denormalizeAll: (data) ->
+  # @return [Object]        The parsed data (JSON)
+  parseAll: (data) ->
     data
 
 
-  # Denormalize a single resource
-  # This method is intended to be overridden by any Store which needs to denormalize its data
+  # Parse a single resource
+  # This method is intended to be overridden by any Store which needs to parse its data
   #
   # @param data [Object]    The API response object (JSON)
   #
-  # @return [Object]        The denormalized data (JSON)
-  denormalizeResource: (data) ->
+  # @return [Object]        The parsed data (JSON)
+  parseResource: (data) ->
     data
 
 

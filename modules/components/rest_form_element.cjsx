@@ -1,8 +1,5 @@
 React          = require 'react'
 shallowCompare = require 'react-addons-shallow-compare'
-_ =
-  isEqual: require 'lodash/lang/isEqual'
-
 
 module.exports = class RestFormElement extends React.Component
 

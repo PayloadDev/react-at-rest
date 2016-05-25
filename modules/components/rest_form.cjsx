@@ -76,8 +76,7 @@ module.exports = class RestForm extends EventableComponent
 
   # get the current state of the model with pending changes applied
   getUpdatedModel: ->
-    attrs = if @props.model instanceof Resource then @props.model.attributes else @props.model
-    _.extend {}, attrs, _.cloneDeep(@state.patch)
+    _.extend {}, @props.model, _.cloneDeep(@state.patch)
 
 
   # Detect if new errors have been rendered

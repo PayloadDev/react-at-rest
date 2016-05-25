@@ -31,7 +31,7 @@ class UserIndexPage extends DeliveryService
     # get all the users
     @subscribeAll UserStore
     # get some company data. the company id could come from anywhere (current session, etc)
-    @retrieveResource CompanyStore, null,
+    @retrieveResource CompanyStore
       id: 1
       query: props.location.query # pass the query string, assuming we're using react-router
 
@@ -66,13 +66,11 @@ componentWillReceiveProps: (nextProps) ->
 ```
 subscribeAll(
     Object store,
-    (Function callback),
     (Object options)
 )
 ```
 * Retrieve all Resources from the API. Refetch the resources every 15 seconds and update the component's state.
 * `store`: the Store to use
-* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
 * `options`:
   * `parentResourcesKey`: Name of parent resource
   * `parentResourceId`:   Required if parentResourcesKey specified. Id of parent resource.
@@ -84,13 +82,11 @@ subscribeAll(
 ```
 subscribeResource(
     Object store,
-    (Function callback),
     (Object options)
 )
 ```
 * Retrieve the Resource from the API. Refetch the resource every 15 seconds and update the component's state.
 * `store`: the Store to use
-* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
 * `options`:
   * `id`:                 id of the resource
   * `parentResourcesKey`: Name of parent resource
@@ -108,7 +104,6 @@ retrieveAll(
 ```
 * Retrieve all Resources from the API.
 * `store`: the Store to use
-* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
 * `options`:
   * `parentResourcesKey`: Name of parent resource
   * `parentResourceId`:   Required if parentResourcesKey specified. Id of parent resource.
@@ -119,13 +114,11 @@ retrieveAll(
 ```
 retrieveResource(
     Object store,
-    (Function callback),
     (Object options)
 )
 ```
 * Retrieve the Resource from the API.
 * `store`: the Store to use
-* `callback`: By default, bound to the internal class method `setStateFromStore`. A custom callback can be supplied but is usually uncessary unless you require specific behavour after the data has been loaded.
 * `options`:
   * `id`:                 id of the resource
   * `parentResourcesKey`: Name of parent resource
