@@ -48,6 +48,7 @@
     "mocha": "^2.3.4",
     "react": "^0.14.0 || ^15.0.1",
     "react-addons-test-utils": "^0.14.0 || ^15.0.1",
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.1",
     "react-dom": "^0.14.0 || ^15.0.1",
     "superagent-mocker": "^0.3.0",
     "webpack": "^1.11.0",
