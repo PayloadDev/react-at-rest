@@ -67,7 +67,7 @@ module.exports = class SubFormArray extends React.Component
   # capture the index at render time and return an event handler
   removeItem: (index) ->
     (e) =>
-      value = if @props.destroyWorkaround
+      value = if @props.destroyWorkaround and @props.value[index]?.id
         id:       @props.value[index].id
         _destroy: '1'
       else
@@ -83,13 +83,18 @@ module.exports = class SubFormArray extends React.Component
         onClick: @addItem
 
     # attach the props to all the children
-    childComponents = for model, index in @props.value when model?._destroy isnt '1'
+    childComponents = for model, index in @props.value
+      # handle destroyed items and null items
+      if not model? or @props.destroyWorkaround and model?._destroy is '1' then continue
+
       React.Children.map @props.children, (child) =>
+        name = "#{@props.name}[#{index}]"
+
         React.cloneElement child,
-          key:      index
+          key:      name
           errors:   @props.errors
           model:    _.cloneDeep model
-          name:     "#{@props.name}[#{index}]"
+          name:     name
           onChange: @propagateChanges
           onRemove: @removeItem index
 
