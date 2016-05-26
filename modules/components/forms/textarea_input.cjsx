@@ -37,7 +37,7 @@ module.exports = class TextAreaInput extends RestFormElement
       <div className={@props.inputWrapperClassName}>
         <textarea
           {...@props}
-          value={@props.value}
+          value={@props.value ? ''}
           className={classes}
           onChange={@handleChange} />
       </div>

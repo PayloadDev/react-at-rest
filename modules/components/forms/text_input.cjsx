@@ -40,7 +40,7 @@ module.exports = class TextInput extends RestFormElement
             ref='element'
             {...@props}
             type={@props.inputType}
-            value={@props.value}
+            value={@props.value ? ''}
             className="form-control"
             onChange={@handleChange} />
           <FieldHint hint={@props.hint} className={@props.hintClassName} />

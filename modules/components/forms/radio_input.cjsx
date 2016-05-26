@@ -22,7 +22,6 @@ module.exports = class RadioInput extends RestFormElement
       disabled: React.PropTypes.bool
     )
 
-
   @defaultProps =
     options: []
 
@@ -30,7 +29,7 @@ module.exports = class RadioInput extends RestFormElement
   renderOption: (option) ->
     checked = @props.value?.toString() is option.value.toString()
 
-    <div className='radio'>
+    <div className='radio' key={option.name}>
       <label>
         <input
           name={option.name}

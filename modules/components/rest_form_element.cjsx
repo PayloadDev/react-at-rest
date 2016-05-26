@@ -11,14 +11,16 @@ module.exports = class RestFormElement extends React.Component
     label:                 React.PropTypes.string
     labelClassName:        React.PropTypes.string
     name:                  React.PropTypes.string.isRequired
-    onChange:              React.PropTypes.func,
+    onChange:              React.PropTypes.func
     required:              React.PropTypes.bool
     errors:                React.PropTypes.array
     value:                 React.PropTypes.any
 
-
   @defaultProps =
     value: ''
+
+  constructor: (props) ->
+    super props
 
 
   componentWillMount: ->
