@@ -37,7 +37,7 @@ module.exports = class RadioInput extends RestFormElement
           value={option.value}
           disabled={option.disabled}
           type='radio'
-          onChange={@props.onChange} />
+          onChange={@handleChange} />
         {option.name}
         <br/>
       </label>
