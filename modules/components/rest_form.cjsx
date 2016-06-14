@@ -102,7 +102,7 @@ module.exports = class RestForm extends EventableComponent
   handleFieldChange: (key, value) =>
     promise = new RSVP.Promise (resolve, reject) =>
       @setState (state, props) ->
-        patch: _.set state.patch, key, value
+        patch: _.set _.cloneDeep(state.patch), key, value
       , ->
         # notify any listeners of the form's change
         @props.onChange?(@state.patch, @getUpdatedModel(), @)
@@ -174,6 +174,7 @@ module.exports = class RestForm extends EventableComponent
       body = @parseErrors response.body
       if body.errors
         @setState (state) ->
+          state = _.cloneDeep state
           state.errors = {}
           # error might be in dotted notation, so convert that to a nested object for subforms
           for key,value of body.errors
@@ -203,10 +204,10 @@ module.exports = class RestForm extends EventableComponent
       modelValue = _.get model, name
       if validation.required and (not modelValue? or modelValue is '' or modelValue.length is 0)
         errors ?= {}
-        _.set errors, validation.fieldName ? name, ['Can\'t be blank']
+        _.set errors, validation.fieldName ? name, [validation.message ? 'Can\'t be blank']
       if modelValue? and (validation.regexp?.test(modelValue) is false or validation.func?(modelValue) is false)
         errors ?= {}
-        _.set errors, validation.fieldName ? name, ['Invalid entry']
+        _.set errors, validation.fieldName ? name, [validation.message ? 'Invalid entry']
 
     AppEvents.trigger 'form.error', errors: errors
     @setState errors: errors
