@@ -110,6 +110,7 @@ The `validations` object maps field names to client-side validations. It current
 * `required`: Boolean. Set if the field is required to have a value.
 * `regexp`: RegularExpression. The field value must match the expression.
 * `func`: Function. Custom validation method, called as func(value). Should return false when invalid.
+* `message`: String. The custom error message to display when the field fails validation.
 
 Validations are executed and must pass prior to submitting anything to the API.
 
