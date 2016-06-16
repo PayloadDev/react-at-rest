@@ -23,7 +23,7 @@ Clone the react-at-rest examples repo to get started! https://github.com/Payload
   * `DeliveryService`: React Component that manages and simplifies communication with the Stores.
   * `RestForm`: React Component for building forms and managing RESTful data flow.
 * Uses Events for Store->Component communication.
-* Written in CoffeeScript, fully compatible with ES6.
+* Written in CoffeeScript, **fully compatible with ES6**.
 * Uses Bootstrap classes by default, but doesn't depend on Bootstrap.
 * Uses subclasses instead of mixins or composition.
 * Plays nicely with [react-router](https://github.com/rackt/react-router/)
