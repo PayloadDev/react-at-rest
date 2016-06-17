@@ -9,6 +9,7 @@ module.exports = class FieldWrapper extends React.Component
     className: React.PropTypes.string
     errors:    React.PropTypes.array
     formGroup: React.PropTypes.bool
+    style:     React.PropTypes.object
 
   @defaultProps =
     formGroup: true
@@ -19,6 +20,6 @@ module.exports = class FieldWrapper extends React.Component
       'form-group': @props.formGroup
       'has-error':  @props.errors?
 
-    <div className={className}>
+    <div className={className} style={@props.style}>
       {@props.children}
     </div>

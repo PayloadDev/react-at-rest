@@ -15,6 +15,7 @@ module.exports = class SubFormArray extends React.Component
     destroyWorkaround:   React.PropTypes.bool
     errors:              React.PropTypes.object
     name:                React.PropTypes.string
+    newItemTemplate:     React.PropTypes.object
     onChange:            React.PropTypes.func
     permittedProperties: React.PropTypes.array
     value:               React.PropTypes.array
@@ -23,6 +24,7 @@ module.exports = class SubFormArray extends React.Component
   @defaultProps =
     componentTagName:    'div'
     destroyWorkaround:   false
+    newItemTemplate:     {}
     permittedProperties: []
   # when singular=true, don't render +/- UI elements
     singular:            false
@@ -61,19 +63,19 @@ module.exports = class SubFormArray extends React.Component
 
 
   addItem: (e) =>
-    @props.onChange "#{@props.name}[#{@props.value.length}]", {}
+    e.preventDefault()
+    @props.onChange "#{@props.name}[#{@props.value.length}]", _.cloneDeep(@props.newItemTemplate)
 
 
   # capture the index at render time and return an event handler
   removeItem: (index) ->
     (e) =>
       value = if @props.destroyWorkaround and @props.value[index]?.id
-        id:       @props.value[index].id
         _destroy: '1'
       else
         null
 
-      @props.onChange "#{@props.name}[#{index}]", value
+      @props.onChange("#{@props.name}[#{index}]", value)
 
 
   render: ->
@@ -82,13 +84,15 @@ module.exports = class SubFormArray extends React.Component
         key:     'addItemButton'
         onClick: @addItem
 
+    value = _.compact @props.value
+
     # Due to the fact that we have a destroyWorkaround we can't trust that the index
     # represents the true representation of the first element. We'll store the first non-destoryed
     # index so that children can conditionally render remove buttons etc.
-    firstPersistedRecordIndex = (index for prop,index in @props.value when prop._destroy isnt '1' or not prop.val)?[0]
+    firstPersistedRecordIndex = (index for prop,index in value when prop._destroy isnt '1' or not prop.val)?[0]
 
     # attach the props to all the children
-    childComponents = for model, index in @props.value
+    childComponents = for model, index in value
       # handle destroyed items and null items
       if not model? or @props.destroyWorkaround and model?._destroy is '1' then continue
 
@@ -99,6 +103,7 @@ module.exports = class SubFormArray extends React.Component
           key:         name
           errors:      @props.errors
           firstRecord: firstPersistedRecordIndex isnt index
+          index:       index
           model:       _.cloneDeep model
           name:        name
           onChange:    @propagateChanges
