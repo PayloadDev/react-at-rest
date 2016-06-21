@@ -10,10 +10,10 @@ RSVP  = require 'rsvp'
 
 _ =
   cloneDeep: require 'lodash/lang/cloneDeep'
-  extend:    require 'lodash/object/extend'
   get:       require 'lodash/object/get'
   isEmpty:   require 'lodash/lang/isEmpty'
   isEqual:   require 'lodash/lang/isEqual'
+  merge:     require 'lodash/object/merge'
   omit:      require 'lodash/object/omit'
   set:       require 'lodash/object/set'
 
@@ -76,7 +76,7 @@ module.exports = class RestForm extends EventableComponent
 
   # get the current state of the model with pending changes applied
   getUpdatedModel: ->
-    _.extend {}, @props.model, _.cloneDeep(@state.patch)
+    _.merge {}, @props.model, _.cloneDeep(@state.patch)
 
 
   # Detect if new errors have been rendered

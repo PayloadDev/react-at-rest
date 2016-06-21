@@ -84,30 +84,35 @@ module.exports = class SubFormArray extends React.Component
         key:     'addItemButton'
         onClick: @addItem
 
-    value = _.compact @props.value
-
     # Due to the fact that we have a destroyWorkaround we can't trust that the index
     # represents the true representation of the first element. We'll store the first non-destoryed
     # index so that children can conditionally render remove buttons etc.
-    firstPersistedRecordIndex = (index for prop,index in value when prop._destroy isnt '1' or not prop.val)?[0]
+    firstPersistedRecordIndex = (index for prop,index in @props.value when prop?._destroy isnt '1' or not prop.val)?[0]
+
+    # since the real "index" includes destroyed items, pass a displayIndex showing where this item is
+    # in the list of subforms being displayed. Not zero-indexed (since it's for display purposes)
+    displayIndex = 0
 
     # attach the props to all the children
-    childComponents = for model, index in value
+    childComponents = for model, index in @props.value
       # handle destroyed items and null items
-      if not model? or @props.destroyWorkaround and model?._destroy is '1' then continue
+      if not model? or (@props.destroyWorkaround and model?._destroy is '1') then continue
+
+      displayIndex++
 
       React.Children.map @props.children, (child) =>
         name = "#{@props.name}[#{index}]"
 
         React.cloneElement child,
-          key:         name
-          errors:      @props.errors
-          firstRecord: firstPersistedRecordIndex isnt index
-          index:       index
-          model:       _.cloneDeep model
-          name:        name
-          onChange:    @propagateChanges
-          onRemove:    @removeItem index
+          key:          name
+          errors:       @props.errors
+          firstRecord:  firstPersistedRecordIndex isnt index
+          index:        index
+          displayIndex: displayIndex
+          model:        _.cloneDeep model
+          name:         name
+          onChange:     @propagateChanges
+          onRemove:     @removeItem index
 
     React.createElement @props.componentTagName,
       className: @props.wrapperClassName,
