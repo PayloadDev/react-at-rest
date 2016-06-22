@@ -3,6 +3,8 @@ _ =
   isEqual:   require 'lodash/lang/isEqual'
   isEmpty:   require 'lodash/lang/isEmpty'
   cloneDeep: require 'lodash/lang/cloneDeep'
+  first:     require 'lodash/array/first'
+  last:      require 'lodash/array/last'
   pick:      require 'lodash/object/pick'
   compact:   require 'lodash/array/compact'
   reject:    require 'lodash/collection/reject'
@@ -39,7 +41,7 @@ module.exports = class SubFormArray extends React.Component
       if _.isEmpty @props.permittedProperties
         _.cloneDeep @props.value
       else
-        (_.pick v, @props.permittedProperties for v in @props.value)
+        (_.pick v, @props.permittedProperties for v in @props.value when v isnt null)
 
     @props.onChange @props.name, value
 
@@ -71,6 +73,7 @@ module.exports = class SubFormArray extends React.Component
   removeItem: (index) ->
     (e) =>
       value = if @props.destroyWorkaround and @props.value[index]?.id
+        id:       @props.value[index]?.id
         _destroy: '1'
       else
         null
@@ -85,9 +88,11 @@ module.exports = class SubFormArray extends React.Component
         onClick: @addItem
 
     # Due to the fact that we have a destroyWorkaround we can't trust that the index
-    # represents the true representation of the first element. We'll store the first non-destoryed
-    # index so that children can conditionally render remove buttons etc.
-    firstPersistedRecordIndex = (index for prop,index in @props.value when prop?._destroy isnt '1' or not prop.val)?[0]
+    # represents the true representation of the first element. So grab the indexes of
+    # the actual persisted records so we can pass the first and last to the subform.
+    persistedRecords = (index for prop,index in @props.value when prop?._destroy isnt '1' and prop?)
+    firstRecordIndex = _.first persistedRecords
+    lastRecordIndex  = _.last persistedRecords
 
     # since the real "index" includes destroyed items, pass a displayIndex showing where this item is
     # in the list of subforms being displayed. Not zero-indexed (since it's for display purposes)
@@ -106,7 +111,8 @@ module.exports = class SubFormArray extends React.Component
         React.cloneElement child,
           key:          name
           errors:       @props.errors
-          firstRecord:  firstPersistedRecordIndex isnt index
+          firstRecord:  firstRecordIndex is index
+          lastRecord:   lastRecordIndex is index
           index:        index
           displayIndex: displayIndex
           model:        _.cloneDeep model
