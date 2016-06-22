@@ -13,22 +13,23 @@ classNames = require 'classnames'
 module.exports = class CheckboxInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    hideLabel: React.PropTypes.bool
-    onBlur:    React.PropTypes.func
+    hideLabel:      React.PropTypes.bool
+    inputClassName: React.PropTypes.string
+    onBlur:         React.PropTypes.func
 
   @defaultProps =
     hideLabel: false
 
   render: ->
     className  = classNames 'checkbox', @props.className
-    inputProps = _.omit @props, 'className'
 
     <div className={className}>
       <FieldWrapper errors={@props.errors} formGroup={false}>
         <label className={@props.labelClassName}>
           <div className={@props.inputWrapperClassName}>
             <input
-              {...inputProps}
+              {...@props}
+              className={@props.inputClassName}
               checked={@props.value ? ''}
               type='checkbox'
               onChange={@handleChange} />

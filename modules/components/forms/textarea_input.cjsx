@@ -15,10 +15,10 @@ _ =
 module.exports = class TextAreaInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    className:    React.PropTypes.string
-    hideLabel:    React.PropTypes.bool
-    onChange:     React.PropTypes.func
-    value:        React.PropTypes.string
+    hideLabel:      React.PropTypes.bool
+    inputClassName: React.PropTypes.string
+    onChange:       React.PropTypes.func
+    value:          React.PropTypes.string
 
 
   render: ->
@@ -30,7 +30,7 @@ module.exports = class TextAreaInput extends RestFormElement
         required={@props.required}
         className={classNames "control-label", @props.labelClassName} />
 
-    classes = classNames 'form-control', @props.className
+    classes = classNames 'form-control', @props.inputClassName
 
     <FieldWrapper errors={@props.errors}>
       {label}

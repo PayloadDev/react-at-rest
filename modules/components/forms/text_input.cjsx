@@ -14,10 +14,11 @@ _ =
 module.exports = class TextInput extends RestFormElement
 
   @propTypes = _.extend RestFormElement.propTypes,
-    hideLabel:   React.PropTypes.bool
-    inputType:   React.PropTypes.string
-    onChange:    React.PropTypes.func
-    style:       React.PropTypes.object
+    hideLabel:      React.PropTypes.bool
+    inputClassName: React.PropTypes.string
+    inputType:      React.PropTypes.string
+    onChange:       React.PropTypes.func
+    style:          React.PropTypes.object
 
   @defaultProps = _.extend {}, RestFormElement.defaultProps,
     inputType: 'text'
@@ -41,7 +42,7 @@ module.exports = class TextInput extends RestFormElement
             {...@props}
             type={@props.inputType}
             value={@props.value ? ''}
-            className="form-control"
+            className={classNames 'form-control', @props.inputClassName}
             onChange={@handleChange} />
           <FieldHint hint={@props.hint} className={@props.hintClassName} />
           <FieldErrors errors={@props.errors} />
