@@ -13,13 +13,13 @@ _ = extend: require 'lodash/object/extend'
 module.exports = class SelectInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    divClass:   React.PropTypes.string
-    hideLabel:  React.PropTypes.bool
-    multiple:   React.PropTypes.bool
-    onChange:   React.PropTypes.func
-    options:    React.PropTypes.array
-    prompt:     React.PropTypes.bool
-    promptText: React.PropTypes.string
+    hideLabel:      React.PropTypes.bool
+    inputClassName: React.PropTypes.string
+    multiple:       React.PropTypes.bool
+    onChange:       React.PropTypes.func
+    options:        React.PropTypes.array
+    prompt:         React.PropTypes.bool
+    promptText:     React.PropTypes.string
 
   @defaultProps =
     prompt:      true
@@ -54,6 +54,7 @@ module.exports = class SelectInput extends RestFormElement
         <div className={@props.inputWrapperClassName}>
           <select
             {...@props}
+            className={@props.inputClassName}
             onChange={@handleChange}
             className='form-control' >
             {selectOptions}
