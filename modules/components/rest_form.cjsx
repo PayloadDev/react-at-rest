@@ -227,8 +227,8 @@ module.exports = class RestForm extends EventableComponent
   # @param key [String] the model's property name
   #
   getFieldProps: (key) =>
-    name:      key
-    value:     _.get @getUpdatedModel(), key
-    errors:    _.get @state.errors, key
-    onChange:  @handleFieldChange
-    required:  @validations[key]?.required
+    name:     key
+    value:    _.get @getUpdatedModel(), key
+    errors:   _.get @state.errors, key
+    onChange: @handleFieldChange
+    required: @validations[key]?.required

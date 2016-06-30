@@ -15,7 +15,7 @@ module.exports = class SubFormArray extends React.Component
   @propTypes =
     addResourceButton:   React.PropTypes.node
     destroyWorkaround:   React.PropTypes.bool
-    errors:              React.PropTypes.object
+    errors:              React.PropTypes.array
     name:                React.PropTypes.string
     newItemTemplate:     React.PropTypes.object
     onChange:            React.PropTypes.func
@@ -110,7 +110,7 @@ module.exports = class SubFormArray extends React.Component
 
         React.cloneElement child,
           key:          name
-          errors:       @props.errors
+          errors:       @props.errors?[index]
           firstRecord:  firstRecordIndex is index
           lastRecord:   lastRecordIndex is index
           index:        index
