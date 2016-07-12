@@ -28,7 +28,7 @@ module.exports = class CheckboxInput extends RestFormElement
         <label className={@props.labelClassName}>
           <div className={@props.inputWrapperClassName}>
             <input
-              {...@props}
+              {..._.omit(@props, 'errors', 'hideLabel', 'inputClassName', 'inputType', 'inputWrapperClassName', 'labelClassName')}
               className={@props.inputClassName}
               checked={@props.value ? ''}
               type='checkbox'

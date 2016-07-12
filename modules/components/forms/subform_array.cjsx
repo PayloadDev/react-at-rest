@@ -30,7 +30,7 @@ module.exports = class SubFormArray extends React.Component
     permittedProperties: []
   # when singular=true, don't render +/- UI elements
     singular:            false
-    value:               []
+    value:               [{}]
     wrapperClassName:    'well well-sm'
 
 

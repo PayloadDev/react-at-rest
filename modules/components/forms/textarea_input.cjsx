@@ -10,6 +10,7 @@ classNames = require 'classnames'
 _ =
   extend:  require 'lodash/object/extend'
   isEqual: require 'lodash/lang/isEqual'
+  omit:    require 'lodash/object/omit'
 
 
 module.exports = class TextAreaInput extends RestFormElement
@@ -36,7 +37,7 @@ module.exports = class TextAreaInput extends RestFormElement
       {label}
       <div className={@props.inputWrapperClassName}>
         <textarea
-          {...@props}
+          {..._.omit(@props, 'errors', 'hideLabel', 'inputType', 'inputClassName', 'inputWrapperClassName', 'labelClassName')}
           value={@props.value ? ''}
           className={classes}
           onChange={@handleChange} />

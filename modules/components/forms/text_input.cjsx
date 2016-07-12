@@ -9,11 +9,12 @@ classNames = require 'classnames'
 
 _ =
   extend: require 'lodash/object/extend'
+  omit:   require 'lodash/object/omit'
 
 
 module.exports = class TextInput extends RestFormElement
 
-  @propTypes = _.extend RestFormElement.propTypes,
+  @propTypes = _.extend {}, RestFormElement.propTypes,
     hideLabel:      React.PropTypes.bool
     inputClassName: React.PropTypes.string
     inputType:      React.PropTypes.string
@@ -39,7 +40,7 @@ module.exports = class TextInput extends RestFormElement
         <div className={@props.inputWrapperClassName}>
           <input
             ref='element'
-            {...@props}
+            {..._.omit(@props, 'errors', 'hideLabel', 'inputClassName', 'inputType', 'inputWrapperClassName', 'labelClassName')}
             type={@props.inputType}
             value={@props.value ? ''}
             className={classNames 'form-control', @props.inputClassName}

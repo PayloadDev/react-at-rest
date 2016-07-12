@@ -7,7 +7,9 @@ FieldErrors     = require './field_errors'
 React      = require 'react'
 classNames = require 'classnames'
 
-_ = extend: require 'lodash/object/extend'
+_ =
+  extend: require 'lodash/object/extend'
+  omit:   require 'lodash/object/omit'
 
 
 module.exports = class SelectInput extends RestFormElement
@@ -53,7 +55,7 @@ module.exports = class SelectInput extends RestFormElement
         {label}
         <div className={@props.inputWrapperClassName}>
           <select
-            {...@props}
+            {..._.omit(@props, 'errors', 'hideLabel', 'inputWrapperClassName', 'labelClassName', 'options', 'prompt', 'promptText')}
             className={@props.inputClassName}
             onChange={@handleChange}
             className='form-control' >
