@@ -40,7 +40,7 @@ module.exports = class TextInput extends RestFormElement
         <div className={@props.inputWrapperClassName}>
           <input
             ref='element'
-            {..._.omit(@props, 'errors', 'hideLabel', 'inputClassName', 'inputType', 'inputWrapperClassName', 'labelClassName')}
+            {..._.omit(@props, 'errors', 'hideLabel', 'hint', 'inputClassName', 'inputType', 'inputWrapperClassName', 'labelClassName')}
             type={@props.inputType}
             value={@props.value ? ''}
             className={classNames 'form-control', @props.inputClassName}
