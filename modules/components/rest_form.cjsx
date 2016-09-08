@@ -64,7 +64,10 @@ module.exports = class RestForm extends EventableComponent
   componentWillReceiveProps: (nextProps) ->
     @setLockVersion nextProps.model
     @setState (state) ->
-      errors: nextProps.errors ? state.errors
+      errors:
+        if _.isEmpty(nextProps.errors) and not _.isEmpty(@props.errors)
+          null
+        else nextProps.errors ? state.errors
 
 
   # Scroll to first error when rendering a form with errors
@@ -163,7 +166,7 @@ module.exports = class RestForm extends EventableComponent
 
   # Update form state with resource errors or general error messaging on submit failure:
   #   When resource errors, fields will be highlighted and appended with error text.
-  #   When error message, error willd isplay in an embedded ErrorSummary component.
+  #   When error message, error will display in an embedded ErrorSummary component.
   #
   # @param response [Object] error response. could be an xhr object for xhr errors, or a generic Error object
   #
