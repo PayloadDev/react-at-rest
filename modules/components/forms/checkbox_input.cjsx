@@ -1,5 +1,6 @@
 RestFormElement = require '../rest_form_element'
 FieldWrapper    = require './field_wrapper'
+FieldHint       = require './field_hint'
 
 _ =
   extend:    require 'lodash/object/extend'
@@ -28,7 +29,7 @@ module.exports = class CheckboxInput extends RestFormElement
         <label className={@props.labelClassName}>
           <div className={@props.inputWrapperClassName}>
             <input
-              {..._.omit(@props, 'errors', 'hideLabel', 'inputClassName', 'inputType', 'inputWrapperClassName', 'labelClassName')}
+              {..._.omit(@props, 'errors', 'hideLabel', 'hint', 'inputClassName', 'inputType', 'inputWrapperClassName', 'labelClassName')}
               className={@props.inputClassName}
               checked={@props.value ? ''}
               type='checkbox'
@@ -36,5 +37,6 @@ module.exports = class CheckboxInput extends RestFormElement
             {unless @props.hideLabel then @props.label ? _.startCase @props.name}
           </div>
         </label>
+        <FieldHint hint={@props.hint} className={@props.hintClassName} />
       </FieldWrapper>
     </div>
