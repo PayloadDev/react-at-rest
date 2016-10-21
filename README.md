@@ -43,6 +43,52 @@ React-at-Rest powers the Payload SPA at payload.net.
 # Getting Started
 
 You can trivially consume a RESTful API using `Store` and `DeliveryService`
+
+#### ES6
+```es6
+class BlogPosts extends DeliveryService {
+
+  constructor(props) {
+    super(props);
+    // create a new Store which connected to an API at /posts
+    this.postStore = new Store('posts');
+  }
+
+  // override bindResources to load all the resources needed for this component
+  bindResources(props) {
+    // retrieve all the posts from the Post Store
+    this.retrieveAll(this.postStore);
+  }
+
+  render() {
+    // show a loading message while loading data
+    if !this.state.loaded
+      return (<span>Loading...</span>)
+
+    // iterate over all the blog posts loaded from our API
+    let posts = this.state.posts.map((post) => {
+      return (
+        <div className="panel panel-default" key={post.id}>
+          <div className="panel-heading">
+            <h3 className="panel-title">{post.title}</h3>
+          </div>
+          <div className="panel-body">
+            {post.body}
+          </div>
+        </div>
+      )
+
+    // render the posts
+    return (
+      <div>
+        {posts}
+      </div>
+    )
+  }   
+}
+```
+
+#### CoffeeScript
 ```coffeescript
 class BlogPosts extends DeliveryService
 
@@ -81,6 +127,45 @@ class BlogPosts extends DeliveryService
 
 Or to load a single resource:
 
+#### ES6
+```es6
+class BlogPost extends DeliveryService {
+
+  constructor(props) {
+    super(props);
+    // create a new Store which connected to an API at /posts
+    this.postStore = new Store('posts');
+  }
+
+  // override bindResources to load all the resources needed for this component
+  bindResources(props) {
+    // retrieve the post from the Post Store by id
+    this.retrieveResource({this.postStore, id: this.props.postId});
+  }
+
+  render() {
+    // show a loading message while loading data
+    if !this.state.loaded
+      return (<span>Loading...</span> )
+
+    // render the post
+    return (
+      <div>
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">{this.state.post.title}</h3>
+          </div>
+          <div className="panel-body">
+            {this.state.post.body}
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+```
+
+#### CoffeeScript
 ```coffeescript
 class BlogPost extends DeliveryService
 
@@ -119,6 +204,30 @@ DeliveryService can load multiple resources in `bindResources`. Simply execute a
 
 `RestForm` takes care of rendering create/edit forms and submitting to the API.
 
+#### ES6
+```es6
+class BlogPostForm extends RestForm {
+
+  //build your form using Reactified versions of regular HTML form elements
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit} className="form-horizontal">
+        <Forms.TextAreaInput {...this.getFieldProps('body')}
+          labelClassName='col-sm-4'
+          inputWrapperClassName='col-sm-8'/>
+        <Forms.TextInput {...this.getFieldProps('author')}
+          labelClassName='col-sm-4'
+          inputWrapperClassName='col-sm-8'/>
+        <div className='text-right'>
+          <button className='btn btn-primary'>Create Post</button>
+        </div>
+      </form>
+    )
+  }
+}
+```
+
+#### CoffeeScript
 ```coffeescript
 class BlogPostForm extends RestForm
 
@@ -138,6 +247,17 @@ class BlogPostForm extends RestForm
 ```
 
 Then render your form component with either a blank model, or one retrieved from the API
+
+#### ES6
+```es6
+# in <BlogPosts /> component
+<BlogPostForm model={{}} store={this.postStore} />
+
+# or to edit a blog posted loaded in a DeliveryService subclass
+<BlogPostForm model={this.state.post} store={this.postStore} />
+```
+
+#### CoffeeScript
 ```coffeescript
 # in <BlogPosts /> component
 <BlogPostForm model={{}} store={@postStore} />
