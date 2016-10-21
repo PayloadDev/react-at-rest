@@ -252,10 +252,10 @@ Then render your form component with either a blank model, or one retrieved from
 
 #### ES6
 ```es6
-# in <BlogPosts /> component
+// in <BlogPosts /> component
 <BlogPostForm model={{}} store={this.postStore} />
 
-# or to edit a blog posted loaded in a DeliveryService subclass
+// or to edit a blog posted loaded in a DeliveryService subclass
 <BlogPostForm model={this.state.post} store={this.postStore} />
 ```
 
