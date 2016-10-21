@@ -16,6 +16,8 @@ A toolkit for building ridiculously fast web applications using React and RESTfu
 
 Clone the react-at-rest examples repo to get started! https://github.com/PayloadDev/react-at-rest-examples
 
+The examples project contains sample code in both [ES6](https://github.com/PayloadDev/react-at-rest-examples/tree/master/src/addressbook) and [CoffeeScript](https://github.com/PayloadDev/react-at-rest-examples/tree/master/src/blog).
+
 ## Main Concepts
 
 * React-at-Rest is composed of 3 main classes, working in concert: `Store`, `DeliveryService`, and `RestForm`.
