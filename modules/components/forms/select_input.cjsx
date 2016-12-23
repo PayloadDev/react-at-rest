@@ -50,15 +50,16 @@ module.exports = class SelectInput extends RestFormElement
     if @props.prompt
       selectOptions.unshift <option key="-1">{@props.promptText}</option>
 
+    inputClassName = classNames 'form-control', @props.inputClassName
+      
     <div className={@props.className} style={@props.style}>
       <FieldWrapper errors={@props.errors}>
         {label}
         <div className={@props.inputWrapperClassName}>
           <select
             {..._.omit(@props, 'errors', 'hideLabel', 'inputWrapperClassName', 'labelClassName', 'options', 'prompt', 'promptText')}
-            className={@props.inputClassName}
-            onChange={@handleChange}
-            className='form-control' >
+            className={inputClassName}
+            onChange={@handleChange}>
             {selectOptions}
           </select>
           <FieldHint hint={@props.hint} className={@props.hintClassName} />
