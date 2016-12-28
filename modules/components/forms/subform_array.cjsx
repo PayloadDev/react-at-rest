@@ -31,7 +31,6 @@ module.exports = class SubFormArray extends React.Component
   # when singular=true, don't render +/- UI elements
     singular:            false
     value:               [{}]
-    wrapperClassName:    'well well-sm'
 
 
   componentDidMount: ->
