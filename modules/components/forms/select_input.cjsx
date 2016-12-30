@@ -57,7 +57,7 @@ module.exports = class SelectInput extends RestFormElement
         {label}
         <div className={@props.inputWrapperClassName}>
           <select
-            {..._.omit(@props, 'errors', 'hideLabel', 'inputWrapperClassName', 'labelClassName', 'options', 'prompt', 'promptText')}
+            {..._.omit(@props, 'errors', 'hideLabel', 'inputClassName', 'inputWrapperClassName', 'labelClassName', 'options', 'prompt', 'promptText')}
             className={inputClassName}
             onChange={@handleChange}>
             {selectOptions}
