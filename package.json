@@ -1,6 +1,6 @@
 {
   "name": "react-at-rest",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "engines": {
     "node": "4.x",
     "npm": "2.x"
