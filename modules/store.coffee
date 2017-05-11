@@ -215,7 +215,7 @@ class Store
     @delete(url)
       .then (data) =>
         @unstoreResource id
-        @trigger 'destroy', @resources
+        @trigger 'destroy', @resources, id
 
 
   # Given the raw AJAX data, return the associated policies
