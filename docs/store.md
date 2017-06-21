@@ -1,6 +1,6 @@
-#Stores
+# Stores
 
-##Overview
+## Overview
 
 The `Store` class is responsible for:
 * implementing the basic REST operations:
@@ -10,7 +10,7 @@ The `Store` class is responsible for:
   * `updateResource` (PATCH)
   * `destroyResource` (DELETE)
 
-####Global Configuration
+#### Global Configuration
 
 The Store class exposes some static variables to modify the default behaviour of the Store class (and all subclasses)
 
@@ -20,7 +20,7 @@ The Store class exposes some static variables to modify the default behaviour of
   * useful for modifying HTTP headers to send auth tokens, etc.
 * `Store.DEFAULT_CONTENT_TYPE = [String]` - Content type header (default: 'application/json')
 
-###Constructor
+### Constructor
 
 ```
 new Store(
@@ -34,9 +34,9 @@ new Store(
   * eg. if `resourcesKey` is 'users' then `resourceKey` will be automatically set to 'user'
   * pass this argument when the singular of your resource is not a simple conversion (eg. 'companies', 'company')
 
-###REST Methods
+### REST Methods
 
-####getAll()
+#### getAll()
 
 ```
 getAll(
@@ -53,7 +53,7 @@ getAll(
 
 **returns: Promise**
 
-####getResource()
+#### getResource()
 
 ```
 getResource(
@@ -70,7 +70,7 @@ getResource(
 
 **returns: Promise**
 
-####createResource()
+#### createResource()
 
 ```
 createResource(
@@ -88,7 +88,7 @@ createResource(
 
 **returns: Promise**
 
-####updateResource()
+#### updateResource()
 
 ```
 updateResource(
@@ -106,7 +106,7 @@ updateResource(
 
 **returns: Promise**
 
-####destroyResource()
+#### destroyResource()
 
 ```
 destroyResource(
@@ -119,11 +119,11 @@ destroyResource(
 
 **returns: Promise**
 
-###Store Customization
+### Store Customization
 
 Stores provide several methods which are intended to be overridden in subclasses to suit your particular environment.
 
-###path()
+### path()
 
 ```
 path(
@@ -143,7 +143,7 @@ path(
 
 **returns: String**
 
-###parseResource()
+### parseResource()
 
 ```
 parseResource(
@@ -157,7 +157,7 @@ parseResource(
 
 **returns: Object**
 
-###parseAll()
+### parseAll()
 
 ```
 parseAll(
@@ -171,7 +171,7 @@ parseAll(
 
 **returns: Object**
 
-###Events
+### Events
 
 Stores trigger events when specific actions occurs. You can listen to a Store's events from a component by extending `EventableComponent`. The `DeliveryService` component automatically subscribes to Store events to manage data flow.
 
