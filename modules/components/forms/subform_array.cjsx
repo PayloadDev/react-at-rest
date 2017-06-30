@@ -1,4 +1,6 @@
-React = require 'react'
+PropTypes  = require 'prop-types'
+React      = require 'react'
+
 _ =
   isEqual:   require 'lodash/lang/isEqual'
   isEmpty:   require 'lodash/lang/isEmpty'
@@ -13,15 +15,15 @@ _ =
 module.exports = class SubFormArray extends React.Component
 
   @propTypes =
-    addResourceButton:   React.PropTypes.node
-    destroyWorkaround:   React.PropTypes.bool
-    errors:              React.PropTypes.array
-    name:                React.PropTypes.string
-    newItemTemplate:     React.PropTypes.object
-    onChange:            React.PropTypes.func
-    permittedProperties: React.PropTypes.array
-    value:               React.PropTypes.array
-    wrapperClassName:    React.PropTypes.string
+    addResourceButton:   PropTypes.node
+    destroyWorkaround:   PropTypes.bool
+    errors:              PropTypes.array
+    name:                PropTypes.string
+    newItemTemplate:     PropTypes.object
+    onChange:            PropTypes.func
+    permittedProperties: PropTypes.array
+    value:               PropTypes.array
+    wrapperClassName:    PropTypes.string
 
   @defaultProps =
     componentTagName:    'div'

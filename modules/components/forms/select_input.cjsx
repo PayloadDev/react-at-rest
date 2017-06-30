@@ -4,8 +4,9 @@ FieldWrapper    = require './field_wrapper'
 FieldHint       = require './field_hint'
 FieldErrors     = require './field_errors'
 
-React      = require 'react'
 classNames = require 'classnames'
+PropTypes  = require 'prop-types'
+React      = require 'react'
 
 _ =
   extend: require 'lodash/object/extend'
@@ -15,13 +16,13 @@ _ =
 module.exports = class SelectInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    hideLabel:      React.PropTypes.bool
-    inputClassName: React.PropTypes.string
-    multiple:       React.PropTypes.bool
-    onChange:       React.PropTypes.func
-    options:        React.PropTypes.array
-    prompt:         React.PropTypes.bool
-    promptText:     React.PropTypes.string
+    hideLabel:      PropTypes.bool
+    inputClassName: PropTypes.string
+    multiple:       PropTypes.bool
+    onChange:       PropTypes.func
+    options:        PropTypes.array
+    prompt:         PropTypes.bool
+    promptText:     PropTypes.string
 
   @defaultProps =
     prompt:      true
@@ -51,7 +52,7 @@ module.exports = class SelectInput extends RestFormElement
       selectOptions.unshift <option key="-1">{@props.promptText}</option>
 
     inputClassName = classNames 'form-control', @props.inputClassName
-      
+
     <div className={@props.className} style={@props.style}>
       <FieldWrapper errors={@props.errors}>
         {label}

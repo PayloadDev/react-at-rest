@@ -5,8 +5,9 @@ EventableComponent = require './eventable_component'
 Resource           = require '../resource'
 AppEvents          = require '../app_events'
 
-React = require 'react'
-RSVP  = require 'rsvp'
+PropTypes = require 'prop-types'
+React     = require 'react'
+RSVP      = require 'rsvp'
 
 _ =
   cloneDeep: require 'lodash/lang/cloneDeep'
@@ -17,14 +18,13 @@ _ =
   omit:      require 'lodash/object/omit'
   set:       require 'lodash/object/set'
 
-
 module.exports = class RestForm extends EventableComponent
 
   @propTypes =
-    model:     React.PropTypes.object
-    store:     React.PropTypes.object
-    onChange:  React.PropTypes.func
-    onSuccess: React.PropTypes.func
+    model:     PropTypes.object
+    store:     PropTypes.object
+    onChange:  PropTypes.func
+    onSuccess: PropTypes.func
 
 
   # array of attribute names which will never be submitted in a CREATE/UPDATE API request

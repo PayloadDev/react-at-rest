@@ -1,7 +1,8 @@
 RestFormElement = require '../rest_form_element'
 TextInput       = require './text_input'
 
-React = require 'react'
+PropTypes = require 'prop-types'
+React     = require 'react'
 
 module.exports = class PasswordInput extends React.Component
 

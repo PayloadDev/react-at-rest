@@ -1,20 +1,21 @@
+PropTypes      = require 'prop-types'
 React          = require 'react'
 shallowCompare = require 'react-addons-shallow-compare'
 
 module.exports = class RestFormElement extends React.Component
 
   @propTypes =
-    disabled:              React.PropTypes.bool
-    hint:                  React.PropTypes.string
-    hintClassName:         React.PropTypes.string
-    inputWrapperClassName: React.PropTypes.string
-    label:                 React.PropTypes.string
-    labelClassName:        React.PropTypes.string
-    name:                  React.PropTypes.string.isRequired
-    onChange:              React.PropTypes.func
-    required:              React.PropTypes.bool
-    errors:                React.PropTypes.array
-    value:                 React.PropTypes.any
+    disabled:              PropTypes.bool
+    hint:                  PropTypes.string
+    hintClassName:         PropTypes.string
+    inputWrapperClassName: PropTypes.string
+    label:                 PropTypes.string
+    labelClassName:        PropTypes.string
+    name:                  PropTypes.string.isRequired
+    onChange:              PropTypes.func
+    required:              PropTypes.bool
+    errors:                PropTypes.array
+    value:                 PropTypes.any
 
   @defaultProps =
     value: ''

@@ -2,10 +2,11 @@ FieldWrapper     = require './field_wrapper'
 FieldErrors      = require './field_errors'
 FieldHint        = require './field_hint'
 Label            = require './label'
-React            = require 'react'
 RestFormElement  = require '../rest_form_element'
 
 classNames = require 'classnames'
+PropTypes  = require 'prop-types'
+React      = require 'react'
 _ =
   extend: require 'lodash/object/extend'
 
@@ -16,10 +17,10 @@ module.exports = class RadioInput extends RestFormElement
 
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    options: React.PropTypes.arrayOf React.PropTypes.shape(
-      name:     React.PropTypes.string.isRequired
-      value:    React.PropTypes.any.isRequired
-      disabled: React.PropTypes.bool
+    options: PropTypes.arrayOf PropTypes.shape(
+      name:     PropTypes.string.isRequired
+      value:    PropTypes.any.isRequired
+      disabled: PropTypes.bool
     )
 
   @defaultProps =

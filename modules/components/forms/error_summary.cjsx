@@ -1,10 +1,11 @@
-React = require 'react'
+PropTypes = require 'prop-types'
+React     = require 'react'
 
 # Place within a form where a generic error message can be returned
 module.exports = class ErrorSummary extends React.Component
 
   @propTypes =
-    message: React.PropTypes.string
+    message: PropTypes.string
 
 
   render: ->

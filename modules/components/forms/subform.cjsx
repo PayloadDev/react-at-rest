@@ -1,4 +1,6 @@
-React = require 'react'
+PropTypes = require 'prop-types'
+React     = require 'react'
+
 _ =
   isEqual: require 'lodash/lang/isEqual'
 
@@ -8,9 +10,9 @@ module.exports = class SubForm extends React.Component
   @displayName: 'SubForm'
 
   @propTypes:
-    name:     React.PropTypes.string
-    onChange: React.PropTypes.func
-    value:    React.PropTypes.object
+    name:     PropTypes.string
+    onChange: PropTypes.func
+    value:    PropTypes.object
 
 
   shouldComponentUpdate: (nextProps, nextState) ->

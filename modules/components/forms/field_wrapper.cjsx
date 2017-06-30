@@ -1,15 +1,16 @@
-React      = require 'react'
 classNames = require 'classnames'
+PropTypes  = require 'prop-types'
+React      = require 'react'
 
 module.exports = class FieldWrapper extends React.Component
 
   @displayName = 'FieldWrapper'
 
   @propTypes =
-    className: React.PropTypes.string
-    errors:    React.PropTypes.array
-    formGroup: React.PropTypes.bool
-    style:     React.PropTypes.object
+    className: PropTypes.string
+    errors:    PropTypes.array
+    formGroup: PropTypes.bool
+    style:     PropTypes.object
 
   @defaultProps =
     formGroup: true

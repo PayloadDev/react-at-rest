@@ -1,4 +1,6 @@
-React = require 'react'
+PropTypes = require 'prop-types'
+React     = require 'react'
+
 _ =
   startCase:    require 'lodash/string/startCase'
 
@@ -7,12 +9,12 @@ module.exports = class Label extends React.Component
   @displayName = 'Label'
 
   @propTypes =
-    className: React.PropTypes.string
-    label:     React.PropTypes.any
-    modelType: React.PropTypes.string
-    name:      React.PropTypes.string
-    required:  React.PropTypes.bool
-    style:     React.PropTypes.object
+    className: PropTypes.string
+    label:     PropTypes.any
+    modelType: PropTypes.string
+    name:      PropTypes.string
+    required:  PropTypes.bool
+    style:     PropTypes.object
 
 
   render: ->

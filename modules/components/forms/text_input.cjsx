@@ -4,8 +4,9 @@ FieldWrapper    = require './field_wrapper'
 FieldHint       = require './field_hint'
 FieldErrors     = require './field_errors'
 
-React      = require 'react'
 classNames = require 'classnames'
+PropTypes  = require 'prop-types'
+React      = require 'react'
 
 _ =
   extend: require 'lodash/object/extend'
@@ -15,11 +16,11 @@ _ =
 module.exports = class TextInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    hideLabel:      React.PropTypes.bool
-    inputClassName: React.PropTypes.string
-    inputType:      React.PropTypes.string
-    onChange:       React.PropTypes.func
-    style:          React.PropTypes.object
+    hideLabel:      PropTypes.bool
+    inputClassName: PropTypes.string
+    inputType:      PropTypes.string
+    onChange:       PropTypes.func
+    style:          PropTypes.object
 
   @defaultProps = _.extend {}, RestFormElement.defaultProps,
     inputType: 'text'

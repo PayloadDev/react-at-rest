@@ -1,4 +1,5 @@
 classNames = require 'classnames'
+PropTypes  = require 'prop-types'
 React      = require 'react'
 
 module.exports = class FieldHint extends React.Component
@@ -6,10 +7,10 @@ module.exports = class FieldHint extends React.Component
   @displayName = 'FieldHint'
 
   @propTypes =
-    className: React.PropTypes.string
-    hint:      React.PropTypes.oneOfType([
-                React.PropTypes.string
-                React.PropTypes.object
+    className: PropTypes.string
+    hint:      PropTypes.oneOfType([
+                PropTypes.string
+                PropTypes.object
               ])
 
   render: ->

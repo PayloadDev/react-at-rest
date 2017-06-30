@@ -7,16 +7,17 @@ _ =
   omit:      require 'lodash/object/omit'
   startCase: require 'lodash/string/startCase'
 
-React      = require 'react'
 classNames = require 'classnames'
+PropTypes  = require 'prop-types'
+React      = require 'react'
 
 
 module.exports = class CheckboxInput extends RestFormElement
 
   @propTypes = _.extend {}, RestFormElement.propTypes,
-    hideLabel:      React.PropTypes.bool
-    inputClassName: React.PropTypes.string
-    onBlur:         React.PropTypes.func
+    hideLabel:      PropTypes.bool
+    inputClassName: PropTypes.string
+    onBlur:         PropTypes.func
 
   @defaultProps =
     hideLabel: false
