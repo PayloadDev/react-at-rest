@@ -5,7 +5,7 @@ A toolkit for building ridiculously fast web applications using React and RESTfu
 
 ## Documentation
 
-* [v2.0.0 Upgrade Guide](docs/updgrade.md)
+* [v2.0.0 Upgrade Guide](docs/upgrade.md)
 * [Overview](docs/overview.md)
 * [Store](docs/store.md)
 * [DeliveryService](docs/deliveryservice.md)
