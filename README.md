@@ -3,6 +3,9 @@ A toolkit for building ridiculously fast web applications using React and RESTfu
 
 ![Codeship Badge](https://codeship.com/projects/27ad5260-a389-0133-6b2c-3a486f5179bd/status?branch=master)
 
+# WARNING: `react-at-rest` is deprecated
+This package is deprecated and is no longer being maintained.
+
 ## Documentation
 
 * [v2.0.0 Upgrade Guide](docs/updgrade.md)
