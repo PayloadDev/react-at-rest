@@ -8,7 +8,7 @@ This package is deprecated and is no longer being maintained.
 
 ## Documentation
 
-* [v2.0.0 Upgrade Guide](docs/updgrade.md)
+* [v2.0.0 Upgrade Guide](docs/upgrade.md)
 * [Overview](docs/overview.md)
 * [Store](docs/store.md)
 * [DeliveryService](docs/deliveryservice.md)
